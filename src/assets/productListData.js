@@ -40,7 +40,7 @@ const products = [
     img: QualityWaterBottle,
     name: "water bottle",
     price: 10,
-    shortDesc: "A reusable water bottle",
+    shortDesc: "A reusable water bottle 💔",
     longDesc:
       "This water bottle is made from stainless steel and keeps your drinks cold for hours.",
     reviews: [],
@@ -50,7 +50,7 @@ const products = [
     img: NewPS4,
     name: "New PS4",
     price: 1500,
-    shortDesc: "A high-end gaming console",
+    shortDesc: "A high-end gaming console ❤️‍🩹",
     longDesc:
       "This PS4 offers stunning graphics and a vast library of games to choose from.",
     reviews: [],
