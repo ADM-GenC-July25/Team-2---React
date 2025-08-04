@@ -56,10 +56,10 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
     if (onProductClick) onProductClick(idx);
   };
 
-  // Promo code handler (simple example)
+  // Promo code handler 
   const handleApplyPromo = () => {
     if (promo === 'SAVE10') {
-      setDiscount(0.1); // 10% off
+      setDiscount(0.1); 
       alert('Promo code applied!');
     } else {
       setDiscount(0);
@@ -67,15 +67,15 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
     }
   };
 
-  // Checkout handler (placeholder)
+  // Checkout handler 
   const handleCheckout = () => {
     alert('Proceeding to checkout!');
   };
 
   // Calculate totals
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = subtotal * 0.07; // 7% estimated tax
-  const shipping = subtotal > 0 ? 5 : 0; // Flat $5 shipping if cart not empty
+  const tax = subtotal * 0.07; 
+  const shipping = subtotal > 0 ? 5 : 0; 
   const discountAmount = subtotal * discount;
   const total = subtotal + tax + shipping - discountAmount;
 
