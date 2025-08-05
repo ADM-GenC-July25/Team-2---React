@@ -1,9 +1,6 @@
-import NavBar from "./components/NavBar";
-
 function HomePage() {
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
-      <NavBar />
       {/* Banner */}
       <header style={{ padding: "20px", textAlign: "center" }}>
         <h1>Welcome to Our Online Store!</h1>
