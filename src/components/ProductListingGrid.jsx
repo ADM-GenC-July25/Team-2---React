@@ -1,6 +1,10 @@
 import ProductListing from "./ProductListing";
 
-function ProductListingGrid({ productList }) {
+function ProductListingGrid({ productList, searchTerm }) {
+  let filteredList = productList.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <div
       style={{
@@ -10,7 +14,7 @@ function ProductListingGrid({ productList }) {
         justifyContent: "center",
       }}
     >
-      {productList.map((product) => (
+      {filteredList.map((product) => (
         <ProductListing key={product.id} product={product} />
       ))}
     </div>
