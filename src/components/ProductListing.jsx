@@ -1,8 +1,7 @@
-function ProductListing({ product }) {
-  function handleAddToCart() {}
-
+function ProductListing({ product, addToCart, openItemPage }) {
   return (
     <div
+      onClick={() => openItemPage()}
       style={{
         border: "1px solid #ccc",
         borderRadius: "8px",
@@ -23,7 +22,7 @@ function ProductListing({ product }) {
       <div
         style={{ fontWeight: "bold", color: "#2a7" }}
       >{`$${product.price}`}</div>
-      <button onClick={() => handleAddToCart()}>Add to Cart</button>
+      <button onClick={() => addToCart()}>Add to Cart</button>
     </div>
   );
 }
