@@ -12,55 +12,29 @@ function ProductPage() {
   // If product not found, show error message
   if (!product) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h1>Product Not Found</h1>
+      <div className="p-5 text-center">
+        <h1 className="text-2xl font-bold mb-2">Product Not Found</h1>
         <p>The product you're looking for doesn't exist.</p>
       </div>
     )
   }
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center',
-      minHeight: '80vh'
-    }}>
-      <h1 style={{ marginBottom: '30px', textAlign: 'center' }}>Product Details</h1>
-      <div style={{ 
-        maxWidth: '400px', 
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
+    <div className="p-5 flex flex-col items-center min-h-[80vh]">
+      <h1 className="mb-8 text-center text-3xl font-bold">Product Details</h1>
+      <div className="max-w-md w-full flex flex-col items-center">
         <Product item={product} />
         {product.longDesc && (
-          <div style={{ 
-            marginTop: '20px', 
-            padding: '16px', 
-            background: '#f5f5f5', 
-            borderRadius: '8px',
-            width: '100%',
-            maxWidth: '500px'
-          }}>
-            <h3>Description</h3>
+          <div className="my-10 py-5 rounded-xl bg-gray-200 dark:bg-black w-full">
+            <h3 className="text-lg font-semibold mb-2">Description</h3>
             <p>{product.longDesc}</p>
           </div>
         )}
         {product.reviews && product.reviews.length > 0 && (
-          <div style={{ 
-            marginTop: '20px', 
-            padding: '16px', 
-            background: '#f5f5f5', 
-            borderRadius: '8px',
-            width: '100%',
-            maxWidth: '500px'
-          }}>
-            <h3>Reviews</h3>
+          <div className="mt-5 p-4 bg-gray-100 rounded-lg w-full max-w-xl">
+            <h3 className="text-lg font-semibold mb-2">Reviews</h3>
             {product.reviews.map((review, index) => (
-              <p key={index}>"{review}"</p>
+              <p key={index} className="mb-2">"{review}"</p>
             ))}
           </div>
         )}
