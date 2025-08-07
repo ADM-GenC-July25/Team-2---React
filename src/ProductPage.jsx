@@ -1,11 +1,14 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Product from './components/Product'
 import products from './assets/productListData'
+import { useCart } from './CartContext'
 
 function ProductPage() {
   const { id } = useParams()
-  
+  const navigate = useNavigate()
+  const { addToCart } = useCart()
+
   // Find the product by ID
   const product = products.find(p => p.id === parseInt(id))
   
@@ -19,11 +22,16 @@ function ProductPage() {
     )
   }
 
+  const handleAddToCartAndRedirect = () => {
+    addToCart(product)
+    navigate('/cart')
+  }
+
   return (
     <div className="p-5 flex flex-col items-center min-h-[80vh]">
       <h1 className="mb-8 text-center text-3xl font-bold">Product Details</h1>
       <div className="max-w-md w-full flex flex-col items-center">
-        <Product item={product} />
+        <Product item={product} addToCart={handleAddToCartAndRedirect} />
         {product.longDesc && (
           <div className="my-10 py-5 rounded-xl bg-gray-200 dark:bg-black w-full">
             <h3 className="text-lg font-semibold mb-2">Description</h3>
