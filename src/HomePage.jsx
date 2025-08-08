@@ -1,4 +1,5 @@
 import Menu from "./components/Menu";
+import Inquiry from "./components/Inquiry";
 
 function HomePage({ menuData }) {
   return (
@@ -19,6 +20,7 @@ function HomePage({ menuData }) {
           <Menu key={index} category={menu.category} items={menu.items} />
         ))}
       </div>
+      <Inquiry />
     </div>
   );
 }
