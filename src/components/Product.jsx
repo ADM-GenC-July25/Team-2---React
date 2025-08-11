@@ -1,16 +1,27 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Product.css'
+import { useCart } from '../CartContext'
 
 function Product({ item, addToCart, openItemPage }) {
   const navigate = useNavigate()
-  
+  const { addToCart: addToCartContext } = useCart()
+
   const handleClick = () => {
     if (openItemPage) {
       openItemPage()
     } else if (item.id) {
       // Navigate to the individual product page
       navigate(`/product/${item.id}`)
+    }
+  }
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation()
+    if (addToCart) {
+      addToCart()
+    } else {
+      addToCartContext(item)
     }
   }
 
@@ -29,7 +40,7 @@ function Product({ item, addToCart, openItemPage }) {
       <div className="product-price">{`$${item.price}`}</div>
       <button 
         className="product-button"
-        onClick={addToCart ? (e) => { e.stopPropagation(); addToCart(); } : undefined}
+        onClick={handleAddToCart}
       >
         Add to Cart
       </button>

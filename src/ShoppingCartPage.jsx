@@ -1,49 +1,31 @@
-import React, { useState } from 'react'
-
-// Placeholder cart items with quantity
-const initialCartItems = [
-  {
-    img: 'https://via.placeholder.com/80',
-    price: 19.99,
-    shortDesc: 'Cool T-shirt',
-    longDesc: 'A very cool T-shirt for everyday wear.',
-    reviews: ['Great shirt!', 'Very comfortable.'],
-    quantity: 1,
-  },
-  {
-    img: 'https://via.placeholder.com/80',
-    price: 29.99,
-    shortDesc: 'Stylish Hat',
-    longDesc: 'A stylish hat for sunny days.',
-    reviews: ['Looks awesome!'],
-    quantity: 2,
-  },
-];
+import React from 'react'
+import { useCart } from './CartContext'
+import './ShoppingCartPage.dark.css'
 
 function ShoppingCartPage({ onNavigate, onProductClick }) {
-  const [cartItems, setCartItems] = useState(initialCartItems);
-  const [promo, setPromo] = useState('');
-  const [discount, setDiscount] = useState(0);
-
-  // Quantity handlers
-  const handleQuantityChange = (idx, delta) => {
-    setCartItems(items => items.map((item, i) =>
-      i === idx ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-    ));
-  };
+  const { cartItems, removeFromCart, updateQuantity, emptyCart } = useCart();
+  const [promo, setPromo] = React.useState('');
+  const [discount, setDiscount] = React.useState(0);
 
   // Remove item handler
   const handleRemove = (idx) => {
     if (window.confirm('Remove this item from cart?')) {
-      setCartItems(items => items.filter((_, i) => i !== idx));
+      removeFromCart(cartItems[idx].shortDesc);
     }
   };
 
   // Empty cart
   const handleEmptyCart = () => {
     if (window.confirm('Are you sure you want to empty your cart?')) {
-      setCartItems([]);
+      emptyCart();
     }
+  };
+
+  // Quantity handlers
+  const handleQuantityChange = (idx, delta) => {
+    const item = cartItems[idx];
+    const newQty = Math.max(1, item.quantity + delta);
+    updateQuantity(item.shortDesc, newQty);
   };
 
   // Navigate to product listing
@@ -80,65 +62,68 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
   const total = subtotal + tax + shipping - discountAmount;
 
   return (
-    <div className="shopping-cart-page" style={{ maxWidth: 700, margin: '0 auto', padding: 24 }}>
-      <h2>Shopping Cart</h2>
-      <button onClick={handleProductListing} style={{ marginBottom: 16, background: '#2980b9', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', cursor: 'pointer' }}>Go to Product Listing</button>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div>
-          <button onClick={handleEmptyCart} style={{ marginBottom: 16, background: '#e67e22', color: '#fff', border: 'none', borderRadius: 4, padding: '8px 16px', cursor: 'pointer' }}>Empty Cart</button>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {cartItems.map((item, idx) => (
-              <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: 16, borderBottom: '1px solid #eee', paddingBottom: 12 }}>
-                <img 
-                  src={item.img} 
-                  alt={item.shortDesc} 
-                  style={{ width: 80, height: 80, objectFit: 'cover', marginRight: 16, cursor: 'pointer' }} 
-                  onClick={() => handleProductClick(idx)}
-                  title="Go to Product Page"
-                />
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 'bold', cursor: 'pointer' }} onClick={() => handleProductClick(idx)}>{item.shortDesc}</div>
-                  <div style={{ color: '#888' }}>${item.price.toFixed(2)} x {item.quantity} = ${(item.price * item.quantity).toFixed(2)}</div>
-                  <div style={{ fontSize: 13, color: '#555', margin: '4px 0' }}>{item.longDesc}</div>
-                  {item.reviews && item.reviews.length > 0 && (
-                    <div style={{ fontSize: 12, color: '#888' }}>
-                      <b>Reviews:</b> {item.reviews.join(' | ')}
-                    </div>
-                  )}
-                  <div style={{ marginTop: 8 }}>
-                    <button onClick={() => handleQuantityChange(idx, -1)} style={{ marginRight: 4, padding: '2px 8px' }}>-</button>
-                    <span style={{ margin: '0 8px' }}>{item.quantity}</span>
-                    <button onClick={() => handleQuantityChange(idx, 1)} style={{ marginLeft: 4, padding: '2px 8px' }}>+</button>
-                  </div>
-                </div>
-                <button onClick={() => handleRemove(idx)} style={{ marginLeft: 8, background: '#e74c3c', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px', cursor: 'pointer' }}>Remove</button>
-              </li>
-            ))}
-          </ul>
-          <div style={{ marginTop: 24, marginBottom: 16 }}>
-            <input 
-              type="text" 
-              placeholder="Promo code" 
-              value={promo} 
-              onChange={e => setPromo(e.target.value)}
-              style={{ padding: '6px 12px', borderRadius: 4, border: '1px solid #ccc', marginRight: 8 }}
-            />
-            <button onClick={handleApplyPromo} style={{ background: '#16a085', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 16px', cursor: 'pointer' }}>Apply</button>
+    <div className="shopping-cart-main">
+      <div className="shopping-cart-page-dark">
+        <div className="shopping-cart-header">Shopping cart</div>
+        <div className="shopping-cart-desc2">You have {cartItems.length} item{cartItems.length !== 1 ? 's' : ''} in your cart</div>
+        <ul className="shopping-cart-list">
+          {cartItems.map((item, idx) => (
+            <li key={idx} className="shopping-cart-item">
+              <img 
+                src={item.img} 
+                alt={item.shortDesc} 
+                className="shopping-cart-img"
+                onClick={() => handleProductClick(idx)}
+                title="Go to Product Page"
+              />
+              <div className="shopping-cart-details" onClick={() => handleProductClick(idx)}>
+                <div className="shopping-cart-title">{item.shortDesc}</div>
+                <div className="shopping-cart-desc">{item.longDesc}</div>
+              </div>
+              <div className="shopping-cart-qty">
+                <button onClick={e => { e.stopPropagation(); handleQuantityChange(idx, -1); }} className="shopping-cart-qty-btn">-</button>
+                <span style={{ margin: '0 8px', fontWeight: 600, fontSize: '1.1rem' }}>{item.quantity}</span>
+                <button onClick={e => { e.stopPropagation(); handleQuantityChange(idx, 1); }} className="shopping-cart-qty-btn">+</button>
+              </div>
+              <div className="shopping-cart-price">${(item.price * item.quantity).toFixed(0)}</div>
+              <button onClick={() => handleRemove(idx)} className="shopping-cart-remove" title="Remove"><span role="img" aria-label="delete">🗑️</span></button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="card-details-panel">
+        <div style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', textAlign: 'center', width: '100%', marginBottom: 18 }}>Card Details</div>
+        <div style={{ marginBottom: 16, fontWeight: 600, color: '#b2becd' }}>Card type</div>
+        <div className="card-type-row">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" />
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <label>Name on card</label>
+          <input type="text" placeholder="Name" />
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <label>Card Number</label>
+          <input type="text" placeholder="1111 2222 3333 4444" />
+        </div>
+        <div className="card-fields-row">
+          <div>
+            <label>Expiration date</label>
+            <input type="text" placeholder="mm/yy" />
           </div>
-          <div style={{ textAlign: 'right', fontSize: 16 }}>
-            <div>Subtotal: ${subtotal.toFixed(2)}</div>
-            <div>Discount: -${discountAmount.toFixed(2)}</div>
-            <div>Estimated Tax: ${tax.toFixed(2)}</div>
-            <div>Estimated Shipping: ${shipping.toFixed(2)}</div>
-            <div style={{ fontWeight: 'bold', fontSize: 20, marginTop: 8 }}>Total: ${total.toFixed(2)}</div>
-          </div>
-          <div style={{ textAlign: 'right', marginTop: 16 }}>
-            <button onClick={handleCheckout} style={{ background: '#27ae60', color: '#fff', border: 'none', borderRadius: 4, padding: '10px 24px', fontSize: 16, cursor: 'pointer' }}>Checkout</button>
+          <div>
+            <label>CVV</label>
+            <input type="text" placeholder="123" />
           </div>
         </div>
-      )}
+        <div style={{ borderTop: '1.5px solid #23272a', margin: '18px 0 12px 0' }}></div>
+        <div className="summary-row"><span>Subtotal</span><span>${subtotal.toFixed(0)}</span></div>
+        <div className="summary-row"><span>Shipping</span><span>${shipping.toFixed(0)}</span></div>
+        <div className="summary-row total"><span>Total (Tax incl.)</span><span>${total.toFixed(0)}</span></div>
+        <button className="checkout-btn" onClick={handleCheckout}>
+          Checkout
+        </button>
+      </div>
     </div>
   );
 }
