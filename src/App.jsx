@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import HomePage from "./HomePage";
-import ProductPage from "./ProductPage";
+import MenuItemPage from "./ProductPage";
 import ShoppingCartPage from "./ShoppingCartPage";
-import ProductListingPage from "./ProductListingPage";
+import MenuPage from "./ProductListingPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
 import menuData from "./assets/menuData";
@@ -18,8 +18,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage menuData={menuData}/>} />
-          <Route path="/products" element={<ProductListingPage />} />
-          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/products" element={<MenuPage />} />
+          <Route path="/menuitem/:id" element={<MenuItemPage />} />
           <Route path="/cart" element={<ShoppingCartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
