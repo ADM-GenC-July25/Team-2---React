@@ -8,8 +8,6 @@ import ProductListingPage from "./ProductListingPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./RegistrationAndLogin/LoginPage";
 import RegistrationPage from "./RegistrationAndLogin/RegistrationPage";
-import ValidateEmailPage from "./RegistrationAndLogin/ValidateEmailPage";
-import ForgotPasswordPage from "./RegistrationAndLogin/ForgotPasswordPage";
 
 function App() {
   return (
@@ -24,8 +22,6 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/validate-email" element={<ValidateEmailPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         </Routes>
       </Router>
     </>

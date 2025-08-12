@@ -1,24 +1,26 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SubmissionButton from "../components/SubmissionButton";
+import SubmissionButton from "../../components/SubmissionButton";
 
-function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
-
+function ValidateEmailDisplay({ code, setCode, setPage }) {
   const navigate = useNavigate();
 
-  function changeEmail(event) {
-    setEmail(event.target.value);
+  function changeCode(event) {
+    setCode(event.target.value);
+  }
+
+  function handleGoBack() {
+    setCode("");
+    setPage("registration");
   }
 
   function onClickSubmit() {
-    // TODO: SEND FORGOT PASSWORD EMAIL
-    console.log("ATTEMPED FORGOT PASSWORD SUBMISSION");
-    navigate("/login");
+    let isValid = false;
+    console.log("ATTEMPED SUBMISSION");
+    navigate("/");
   }
 
   let canSubmit = false;
-  if (email.length > 0) {
+  if (code.length > 0) {
     canSubmit = true;
   }
 
@@ -26,28 +28,28 @@ function ForgotPasswordPage() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center font-[Nunito] px-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-4xl font-bold text-center mb-6">
-          Forgot your password?
+          Validate your Email
         </h1>
 
         <label
           className="block text-sm font-medium text-gray-700 mb-1"
-          htmlFor="email"
+          htmlFor="Validation Code"
         >
-          Don't worry, we can send instructions on how to reset your password to
+          A code has been sent to your email. Please enter it here to validate
           your email.
         </label>
         <input
-          id="email"
+          id="Validation Code"
           type="text"
-          autoComplete="email"
-          placeholder="Type your email"
+          autoComplete="off"
+          placeholder="Enter your code"
           className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={email}
-          onChange={(event) => changeEmail(event)}
+          value={code}
+          onChange={(event) => changeCode(event)}
         />
 
         <div className="flex justify-around gap-x-4 mt-4">
-          <SubmissionButton isActive={true} onClick={() => navigate("/login")}>
+          <SubmissionButton isActive={true} onClick={() => handleGoBack()}>
             Go Back
           </SubmissionButton>
           <SubmissionButton
@@ -61,9 +63,9 @@ function ForgotPasswordPage() {
         <div className="flex justify-center mt-4">
           <button
             className="text-sm text-blue-600 hover:underline"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/login")}
           >
-            Not a member? Sign up here
+            Already a member? Log in here
           </button>
         </div>
       </div>
@@ -71,4 +73,4 @@ function ForgotPasswordPage() {
   );
 }
 
-export default ForgotPasswordPage;
+export default ValidateEmailDisplay;
