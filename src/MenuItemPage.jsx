@@ -29,13 +29,13 @@ function MenuItemPage() {
   }
 
   return (
-    <div className="p-5 flex flex-col items-center min-h-[80vh]">
-      <h1 className="mb-8 text-center text-3xl font-bold">Menu Item Details</h1>
-      <div className="max-w-md w-full flex flex-col items-center">
+    <div className="p-5 flex flex-col items-center min-h-[80vh] bg-gradient-to-br from-[#0c0c1e] via-[#1a1a2e] to-[#16213e]">
+      <h1 className="mb-8 text-center text-4xl font-bold bg-gradient-to-r from-[#ff6b6b] via-[#45b7d1] to-[#96ceb4] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]">Menu Item Details</h1>
+      <div className="max-w-xl w-full flex flex-col items-center">
         <MenuItem item={menuItem} addToCart={handleAddToCartAndRedirect} />
-        <div className="my-10 py-5 rounded-xl bg-gray-200 dark:bg-black w-full">
-          <h3 className="text-lg font-semibold mb-2">Description</h3>
-          <p>{menuItem.description}</p>
+        <div className="my-10 py-5 rounded-xl bg-black/40 w-full shadow-lg border border-[#45b7d1]">
+          <h3 className="text-lg font-semibold mb-2 text-[#45b7d1] px-5">Description</h3>
+          <p className="text-[#b8b8d1] px-5">{menuItem.description}</p>
         </div>
       </div>
     </div>

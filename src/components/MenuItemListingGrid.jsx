@@ -20,15 +20,7 @@ function MenuItemGrid({ menuData, searchTerm }) {
 
         return (
           <div key={category.category} style={{ marginBottom: "32px" }}>
-            <h2 style={{ 
-              marginBottom: "24px", 
-              color: "white",
-              textAlign: "center",
-              fontSize: "2em",
-              fontWeight: "bold",
-              textTransform: "capitalize",
-              letterSpacing: "1px"
-            }}>
+            <h2 className="text-[2.2em] font-bold mb-6 bg-gradient-to-r from-[#ff6b6b] via-[#45b7d1] to-[#96ceb4] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,255,255,0.5)] text-center capitalize tracking-wide">
               {category.category}
             </h2>
             <div

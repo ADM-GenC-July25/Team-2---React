@@ -16,7 +16,7 @@ import MenuItemPage from "./MenuItemPage";
 
 function App() {
   return (
-    <div className="bg-gradient-to-br from-indigo-900 via-green-900 to-purple-900">
+    <div >
       <Router>
         <NavBar />
         <Routes>
