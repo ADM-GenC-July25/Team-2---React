@@ -38,17 +38,6 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
     if (onProductClick) onProductClick(idx);
   };
 
-  // Promo code handler 
-  const handleApplyPromo = () => {
-    if (promo === 'SAVE10') {
-      setDiscount(0.1); 
-      alert('Promo code applied!');
-    } else {
-      setDiscount(0);
-      alert('Invalid promo code.');
-    }
-  };
-
   // Checkout handler 
   const handleCheckout = () => {
     alert('Proceeding to checkout!');
@@ -92,34 +81,10 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
         </ul>
       </div>
       <div className="card-details-panel">
-        <div style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', textAlign: 'center', width: '100%', marginBottom: 18 }}>Card Details</div>
-        <div style={{ marginBottom: 16, fontWeight: 600, color: '#b2becd' }}>Card type</div>
-        <div className="card-type-row">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" />
-        </div>
-        <div style={{ marginBottom: 12 }}>
-          <label>Name on card</label>
-          <input type="text" placeholder="Name" />
-        </div>
-        <div style={{ marginBottom: 12 }}>
-          <label>Card Number</label>
-          <input type="text" placeholder="1111 2222 3333 4444" />
-        </div>
-        <div className="card-fields-row">
-          <div>
-            <label>Expiration date</label>
-            <input type="text" placeholder="mm/yy" />
-          </div>
-          <div>
-            <label>CVV</label>
-            <input type="text" placeholder="123" />
-          </div>
-        </div>
-        <div style={{ borderTop: '1.5px solid #23272a', margin: '18px 0 12px 0' }}></div>
         <div className="summary-row"><span>Subtotal</span><span>${subtotal.toFixed(0)}</span></div>
         <div className="summary-row"><span>Shipping</span><span>${shipping.toFixed(0)}</span></div>
-        <div className="summary-row total"><span>Total (Tax incl.)</span><span>${total.toFixed(0)}</span></div>
+        <div className="summary-row"><span>Tax</span><span>${tax.toFixed(0)}</span></div>
+        <div className="summary-row total"><span>Total</span><span>${total.toFixed(0)}</span></div>
         <button className="checkout-btn" onClick={handleCheckout}>
           Checkout
         </button>
