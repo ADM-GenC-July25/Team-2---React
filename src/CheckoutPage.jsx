@@ -43,7 +43,7 @@ function CheckoutPage() {
   const [orderComplete, setOrderComplete] = useState(false);
 
   // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity, 0);
   const tax = subtotal * 0.07;
   const shipping = subtotal > 50 ? 0 : 8.99; // Free shipping over $50
   const total = subtotal + tax + shipping;
@@ -497,7 +497,7 @@ function CheckoutPage() {
                   <div className="item-name">{item.shortDesc}</div>
                   <div className="item-quantity">Qty: {item.quantity}</div>
                 </div>
-                <div className="item-price">${(item.price * item.quantity).toFixed(2)}</div>
+                <div className="item-price">${(parseFloat(item.price.replace('$', '')) * item.quantity).toFixed(2)}</div>
               </div>
             ))}
           </div>
