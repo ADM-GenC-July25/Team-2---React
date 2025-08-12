@@ -20,13 +20,13 @@ function HomePage({ menuData }) {
         <img src="https://via.placeholder.com/600x300" alt="Resturant location" className="mx-auto mb-5 rounded-2xl border-4 border-green-400 shadow-xl hover:scale-105 transition-transform duration-300" />
       </div> */}
       <FeaturedProducts />
-      <HomeLogin/>
-      <div className="space-y-10">
+      {/* <HomeLogin/> */}
+      {/* <div className="space-y-10">
         {menuData.map((menu, index) => (
           <Menu key={index} category={menu.category} items={menu.items} />
         ))}
-      </div>
-      <Inquiry />
+      </div> */}
+      {/* <Inquiry /> */}
     </div>
   );
 }
