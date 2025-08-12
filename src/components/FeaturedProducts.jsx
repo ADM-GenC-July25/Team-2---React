@@ -1,4 +1,5 @@
 import React from 'react'
+import { useCart } from '../CartContext'
 
   const sectionStyle = {
     padding: '40px 20px',
@@ -27,6 +28,38 @@ import React from 'react'
  
 
 function FeaturedProducts() {
+  const { addToCart } = useCart();
+
+  const featuredItems = [
+    {
+      id: 'lunr-cheese',
+      name: 'Lunar Cheese Craters',
+      description: 'Aged moon cheese melted in volcanic craters, served with asteroid herb seasoning',
+      price: "$299",
+      emoji: '🌙'
+    },
+    {
+      id: 'solar-flare',
+      name: 'Solar Flare Soup',
+      description: 'Spicy plasma broth with floating meteorite dumplings, guaranteed to warm your soul',
+      price: "$189",
+      emoji: '🔥'
+    },
+    {
+      id: 'galaxy-smoothie',
+      name: 'Galaxy Swirl Smoothie',
+      description: 'Nebula fruit blend with stardust sprinkles, tastes like the cosmos in a glass',
+      price: "$149",
+      emoji: '🌌'
+    }
+  ];
+
+  const handleAddToCart = (item) => {
+    addToCart(item);
+    // Optional: Show a toast or feedback
+    alert(`${item.name} added to cart!`);
+  };
+
   return (
     <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: '#f8f9ff' }}>
 
@@ -80,57 +113,25 @@ function FeaturedProducts() {
           </p>
         </div>
  
-        <div style={productGridStyle}>
-          <div style={productCardStyle} className="product-card">
-            <div style={{ fontSize: '3em', marginBottom: '15px' }}>🌙</div>
-            <h3 style={{ fontSize: '1.5em', marginBottom: '15px' }}>Lunar Cheese Craters</h3>
-            <p style={{ marginBottom: '20px', lineHeight: '1.6' }}>
-              Aged moon cheese melted in volcanic craters, served with asteroid herb seasoning
-            </p>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              marginTop: '20px'
-            }}>
-              <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ 299 Credits</span>
-              <Button>Add to Cart</Button>
+                <div style={productGridStyle}>
+          {featuredItems.map((item) => (
+            <div key={item.id} style={productCardStyle} className="product-card">
+              <div style={{ fontSize: '3em', marginBottom: '15px' }}>{item.emoji}</div>
+              <h3 style={{ fontSize: '1.5em', marginBottom: '15px' }}>{item.name}</h3>
+              <p style={{ marginBottom: '20px', lineHeight: '1.6' }}>
+                {item.description}
+              </p>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                marginTop: '20px'
+              }}>
+                <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ {item.price} Credits</span>
+                <Button onClick={() => handleAddToCart(item)}>Add to Cart</Button>
+              </div>
             </div>
-          </div>
- 
-          <div style={productCardStyle} className="product-card">
-            <div style={{ fontSize: '3em', marginBottom: '15px' }}>🔥</div>
-            <h3 style={{ fontSize: '1.5em', marginBottom: '15px' }}>Solar Flare Soup</h3>
-            <p style={{ marginBottom: '20px', lineHeight: '1.6' }}>
-              Spicy plasma broth with floating meteorite dumplings, guaranteed to warm your soul
-            </p>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              marginTop: '20px'
-            }}>
-              <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ 189 Credits</span>
-              <Button>Add to Cart</Button>
-            </div>
-          </div>
- 
-          <div style={productCardStyle} className="product-card">
-            <div style={{ fontSize: '3em', marginBottom: '15px' }}>🌌</div>
-            <h3 style={{ fontSize: '1.5em', marginBottom: '15px' }}>Galaxy Swirl Smoothie</h3>
-            <p style={{ marginBottom: '20px', lineHeight: '1.6' }}>
-              Nebula fruit blend with stardust sprinkles, tastes like the cosmos in a glass
-            </p>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              marginTop: '20px'
-            }}>
-              <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ 149 Credits</span>
-              <Button>Add to Cart</Button>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>
@@ -139,18 +140,23 @@ function FeaturedProducts() {
 
 export default FeaturedProducts
 
-function Button( {children } ) {
+function Button({ children, onClick }) {
     return (
-              <button style={{ 
-                padding: '8px 16px', 
-                borderRadius: '15px', 
-                border: 'none',
-                background: 'rgba(255, 255, 255, 0.3)',
-                color: 'white',
-                cursor: 'pointer'
-              }}>
-                Add to Cart
+              <button 
+                onClick={onClick}
+                style={{ 
+                  padding: '8px 16px', 
+                  borderRadius: '15px', 
+                  border: 'none',
+                  background: 'rgba(255, 255, 255, 0.3)',
+                  color: 'white',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.5)'}
+                onMouseOut={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.3)'}
+              >
+                {children}
               </button>
     );
-
 }

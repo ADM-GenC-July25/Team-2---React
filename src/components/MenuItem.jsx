@@ -22,6 +22,7 @@ const handleAddToCart = (e) => {
       addToCart()
     } else {
       addToCartContext(item)
+      alert(`${item.name} added to cart!`)
     }
   }
 

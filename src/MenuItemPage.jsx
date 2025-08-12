@@ -1,7 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import MenuItem from './components/MenuItem'
 import menuData from './assets/menuData'
+import { useCart } from './CartContext'
 
 function MenuItemPage() {
   const { id } = useParams()
@@ -23,7 +24,7 @@ function MenuItemPage() {
   }
 
   const handleAddToCartAndRedirect = () => {
-    addToCart(product)
+    addToCart(menuItem)
     navigate('/cart')
   }
 

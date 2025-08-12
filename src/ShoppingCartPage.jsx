@@ -12,7 +12,8 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
   // Remove item handler
   const handleRemove = (idx) => {
     if (window.confirm('Remove this item from cart?')) {
-      removeFromCart(cartItems[idx].shortDesc);
+      const item = cartItems[idx];
+      removeFromCart(item.id || item.shortDesc);
     }
   };
 
@@ -27,7 +28,7 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
   const handleQuantityChange = (idx, delta) => {
     const item = cartItems[idx];
     const newQty = Math.max(1, item.quantity + delta);
-    updateQuantity(item.shortDesc, newQty);
+    updateQuantity(item.id || item.shortDesc, newQty);
   };
 
   // Navigate to product listing
@@ -46,7 +47,8 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
   };
 
   // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  console.log(cartItems)
+  const subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity, 0);
   const tax = subtotal * 0.07; 
   const shipping = subtotal > 0 ? 5 : 0; 
   const discountAmount = subtotal * discount;
@@ -62,32 +64,51 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
           {cartItems.map((item, idx) => (
             <li key={idx} className="shopping-cart-item">
               <img 
-                src={item.img} 
-                alt={item.shortDesc} 
+                src={item.img || '/default-product.jpg'} 
+                alt={item.shortDesc || item.name} 
                 className="shopping-cart-img"
                 onClick={() => handleProductClick(idx)}
                 title="Go to Product Page"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
               />
+              <div 
+                style={{
+                  width: '72px',
+                  height: '72px',
+                  backgroundColor: '#667eea',
+                  borderRadius: '8px',
+                  display: 'none',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '2rem',
+                  marginRight: '18px'
+                }}
+              >
+                🍽️
+              </div>
               <div className="shopping-cart-details" onClick={() => handleProductClick(idx)}>
-                <div className="shopping-cart-title">{item.shortDesc}</div>
-                <div className="shopping-cart-desc">{item.longDesc}</div>
+                <div className="shopping-cart-title">{item.shortDesc || item.name}</div>
+                <div className="shopping-cart-desc">{item.longDesc || item.description}</div>
               </div>
               <div className="shopping-cart-qty">
                 <button onClick={e => { e.stopPropagation(); handleQuantityChange(idx, -1); }} className="shopping-cart-qty-btn">-</button>
                 <span style={{ margin: '0 8px', fontWeight: 600, fontSize: '1.1rem' }}>{item.quantity}</span>
                 <button onClick={e => { e.stopPropagation(); handleQuantityChange(idx, 1); }} className="shopping-cart-qty-btn">+</button>
               </div>
-              <div className="shopping-cart-price">${(item.price * item.quantity).toFixed(0)}</div>
+              <div className="shopping-cart-price">${((parseFloat(item.price.replace('$', ''))) * item.quantity).toFixed(2)}</div>
               <button onClick={() => handleRemove(idx)} className="shopping-cart-remove" title="Remove"><span role="img" aria-label="delete">🗑️</span></button>
             </li>
           ))}
         </ul>
       </div>
       <div className="card-details-panel">
-        <div className="summary-row"><span>Subtotal</span><span>${subtotal.toFixed(0)}</span></div>
-        <div className="summary-row"><span>Shipping</span><span>${shipping.toFixed(0)}</span></div>
-        <div className="summary-row"><span>Tax</span><span>${tax.toFixed(0)}</span></div>
-        <div className="summary-row total"><span>Total</span><span>${total.toFixed(0)}</span></div>
+        <div className="summary-row"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
+        <div className="summary-row"><span>Shipping</span><span>${shipping.toFixed(2)}</span></div>
+        <div className="summary-row"><span>Tax</span><span>${tax.toFixed(2)}</span></div>
+        <div className="summary-row total"><span>Total</span><span>${total.toFixed(2)}</span></div>
         <button className="checkout-btn" onClick={handleCheckout}>
           Checkout
         </button>

@@ -8,28 +8,40 @@ export function useCart() {
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
-
+  
   function addToCart(item) {
+    // Normalize item structure to handle both old product format and new menu format
+    const normalizedItem = {
+      id: item.id || item.shortDesc || item.name,
+      shortDesc: item.shortDesc || item.name,
+      longDesc: item.longDesc || item.description,
+      price: typeof item.price === 'string' ? parseFloat(item.price.replace('$', '')) : item.price,
+      img: item.img || '/default-product.jpg', // fallback image
+      quantity: item.quantity || 1,
+      // Keep original item for compatibility
+      ...item
+    };
+
     setCartItems(prev => {
-      const existing = prev.find(i => i.shortDesc === item.shortDesc);
+      const existing = prev.find(i => i.id === normalizedItem.id || i.shortDesc === normalizedItem.shortDesc);
       if (existing) {
         return prev.map(i =>
-          i.shortDesc === item.shortDesc
-            ? { ...i, quantity: i.quantity + (item.quantity || 1) }
+          (i.id === normalizedItem.id || i.shortDesc === normalizedItem.shortDesc)
+            ? { ...i, quantity: i.quantity + (normalizedItem.quantity || 1) }
             : i
         );
       }
-      return [...prev, { ...item, quantity: item.quantity || 1 }];
+      return [...prev, normalizedItem];
     });
   }
 
-  function removeFromCart(shortDesc) {
-    setCartItems(prev => prev.filter(i => i.shortDesc !== shortDesc));
+  function removeFromCart(identifier) {
+    setCartItems(prev => prev.filter(i => i.shortDesc !== identifier && i.id !== identifier));
   }
 
-  function updateQuantity(shortDesc, quantity) {
+  function updateQuantity(identifier, quantity) {
     setCartItems(prev => prev.map(i =>
-      i.shortDesc === shortDesc ? { ...i, quantity } : i
+      (i.shortDesc === identifier || i.id === identifier) ? { ...i, quantity } : i
     ));
   }
 
