@@ -1,9 +1,11 @@
 import React from 'react'
 import { useCart } from './CartContext'
+import { useNavigate } from 'react-router-dom'
 import './ShoppingCartPage.dark.css'
 
 function ShoppingCartPage({ onNavigate, onProductClick }) {
   const { cartItems, removeFromCart, updateQuantity, emptyCart } = useCart();
+  const navigate = useNavigate();
   const [promo, setPromo] = React.useState('');
   const [discount, setDiscount] = React.useState(0);
 
@@ -51,7 +53,7 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
 
   // Checkout handler 
   const handleCheckout = () => {
-    alert('Proceeding to checkout!');
+    navigate('/checkout');
   };
 
   // Calculate totals
@@ -62,7 +64,8 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
   const total = subtotal + tax + shipping - discountAmount;
 
   return (
-    <div className="shopping-cart-main">
+    <div className="shopping-cart-page-wrapper">
+      <div className="shopping-cart-main">
       <div className="shopping-cart-page-dark">
         <div className="shopping-cart-header">Shopping cart</div>
         <div className="shopping-cart-desc2">You have {cartItems.length} item{cartItems.length !== 1 ? 's' : ''} in your cart</div>
@@ -124,6 +127,7 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
           Checkout
         </button>
       </div>
+    </div>
     </div>
   );
 }

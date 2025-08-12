@@ -1,6 +1,11 @@
 function HomePage() {
   return (
-    <div style={{ fontFamily: "Arial, sans-serif" }}>
+    <div style={{ 
+      fontFamily: "Arial, sans-serif", 
+      backgroundColor: "#ffffff",
+      minHeight: "100vh",
+      color: "#333"
+    }}>
       {/* Banner */}
       <header style={{ padding: "20px", textAlign: "center" }}>
         <h1>Welcome to Our Online Store!</h1>
