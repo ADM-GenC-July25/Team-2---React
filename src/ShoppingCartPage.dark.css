@@ -1,10 +1,11 @@
-/* body {
+/* Scoped dark theme styles for shopping cart page */
+.shopping-cart-page-wrapper {
   background: #101014;
   min-height: 100vh;
   font-family: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
   margin: 0;
   padding: 0;
-} */
+}
 
 .shopping-cart-main {
   display: flex;
