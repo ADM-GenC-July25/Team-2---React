@@ -7,8 +7,8 @@ import ShoppingCartPage from "./ShoppingCartPage";
 // import MenuPage from "./ProductListingPage";
 import CheckoutPage from "./CheckoutPage";
 
-import LoginPage from "./RegistrationAndLogin/LoginPage";
-import RegistrationPage from "./RegistrationAndLogin/RegistrationPage";
+import LoginPage from "./LoginPage";
+import RegistrationPage from "./RegistrationPage";
 import menuData from "./assets/menuData";
 import Footer from "./components/Footer";
 import MenuPage from "./MenuPage";

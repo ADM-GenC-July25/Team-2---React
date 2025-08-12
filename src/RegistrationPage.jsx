@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RegistrationDisplay from "./components/RegistrationDisplay";
-import ValidateEmailDisplay from "./components/ValidateEmailDisplay";
+import RegistrationDisplay from "./components/LoginRegistration/RegistrationDisplay";
+import ValidateEmailDisplay from "./components/LoginRegistration/ValidateEmailDisplay";
 
 function RegistrationPage() {
   const [email, setEmail] = useState("");

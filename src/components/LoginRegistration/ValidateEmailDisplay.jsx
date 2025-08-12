@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import SubmissionButton from "../../components/SubmissionButton";
+import SubmissionButton from "../SubmissionButton";
 
 function ValidateEmailDisplay({ code, setCode, setPage }) {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ function ValidateEmailDisplay({ code, setCode, setPage }) {
 
   function onClickSubmit() {
     let isValid = false;
+    setCode("");
     console.log("ATTEMPED SUBMISSION");
     navigate("/");
   }

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LoginDisplay from "./components/LoginDisplay";
-import ForgotPasswordDisplay from "./components/ForgotPasswordDisplay";
+import LoginDisplay from "./components/LoginRegistration/LoginDisplay";
+import ForgotPasswordDisplay from "./components/LoginRegistration/ForgotPasswordDisplay";
 
 function LoginPage() {
   const [email, setEmail] = useState("");

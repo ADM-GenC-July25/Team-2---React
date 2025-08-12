@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import SubmissionButton from "../../components/SubmissionButton";
+import SubmissionButton from "../SubmissionButton";
 
 function ForgotPasswordDisplay({ email, setEmail, setPage }) {
   const navigate = useNavigate();
@@ -16,7 +16,8 @@ function ForgotPasswordDisplay({ email, setEmail, setPage }) {
   function onClickSubmit() {
     // TODO: SEND FORGOT PASSWORD EMAIL
     console.log("ATTEMPED FORGOT PASSWORD SUBMISSION");
-    navigate("/login");
+    setEmail("");
+    setPage("login");
   }
 
   let canSubmit = false;

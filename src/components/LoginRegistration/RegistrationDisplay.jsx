@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import SubmissionButton from "../../components/SubmissionButton";
+import SubmissionButton from "../SubmissionButton";
 
 function RegistrationDisplay({
   email,
