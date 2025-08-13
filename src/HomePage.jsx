@@ -26,7 +26,7 @@ function HomePage({ menuData }) {
           <Menu key={index} category={menu.category} items={menu.items} />
         ))}
       </div> */}
-      {/* <Inquiry /> */}
+      <Inquiry />
     </div>
   );
 }

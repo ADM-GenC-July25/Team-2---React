@@ -57,7 +57,7 @@ function FeaturedProducts() {
   const handleAddToCart = (item) => {
     addToCart(item);
     // Optional: Show a toast or feedback
-    alert(`${item.name} added to cart!`);
+    // alert(`${item.name} added to cart!`);
   };
 
   return (

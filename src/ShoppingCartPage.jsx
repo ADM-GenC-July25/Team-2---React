@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCart } from './CartContext'
 import { useNavigate } from 'react-router-dom'
-import './ShoppingCartPage.dark.css'
+import './styles/ShoppingCartPage.dark.css'
 
 function ShoppingCartPage({ onNavigate, onProductClick }) {
   const { cartItems, removeFromCart, updateQuantity, emptyCart } = useCart();
