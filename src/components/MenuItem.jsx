@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import './MenuItem.css'
+import '../styles/MenuItem.css'
 import { useCart } from '../CartContext'
 
 function MenuItem({ item, addToCart, openItemPage }) {
@@ -22,7 +22,7 @@ const handleAddToCart = (e) => {
       addToCart()
     } else {
       addToCartContext(item)
-      alert(`${item.name} added to cart!`)
+      // alert(`${item.name} added to cart!`)
     }
   }
 
