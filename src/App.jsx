@@ -1,22 +1,19 @@
-// import "./App.css";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import HomePage from "./HomePage";
-// import MenuItemPage from "./ProductPage";
 import ShoppingCartPage from "./ShoppingCartPage";
-// import MenuPage from "./ProductListingPage";
 import CheckoutPage from "./CheckoutPage";
-
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage";
 import menuData from "./assets/menuData";
 import Footer from "./components/Footer";
 import MenuPage from "./MenuPage";
 import MenuItemPage from "./MenuItemPage";
+import { CartProvider } from "./CartContext";
 
 function App() {
   return (
-    <div >
+    <CartProvider >
       <Router>
         <NavBar />
         <Routes>
@@ -30,7 +27,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </div>
+    </CartProvider>
   );
 }
 
