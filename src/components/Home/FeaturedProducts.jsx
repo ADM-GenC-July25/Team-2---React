@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCart } from '../CartContext'
+import { useCart } from '../../CartContext'
 
   const sectionStyle = {
     padding: '40px 20px',
