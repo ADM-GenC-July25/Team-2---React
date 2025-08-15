@@ -51,13 +51,15 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
   const {subtotal, tax, shipping, total} = calculateCosts();
   const discountAmount = subtotal * discount;
 
+  const numberOfItems = cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0);
+
 
   return (
     <div className="shopping-cart-page-wrapper">
       <div className="shopping-cart-main">
         <div className="shopping-cart-page-dark">
           <div className="shopping-cart-header">Shopping cart</div>
-          <div className="shopping-cart-desc2">You have {cartItems.length} item{cartItems.length !== 1 ? 's' : ''} in your cart</div>
+          <div className="shopping-cart-desc2">You have {numberOfItems} item{numberOfItems !== 1 ? 's' : ''} in your cart</div>
           <ul className="shopping-cart-list">
             {cartItems.map((item, idx) => (
               <li key={idx} className="shopping-cart-item">

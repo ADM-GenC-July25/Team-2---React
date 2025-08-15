@@ -19,7 +19,10 @@ function NavBar() {
                 <div className="flex space-x-4">
                     <li>
                         <Link to="/cart">
-                        {subtotal > 0 && <>${subtotal.toFixed(2)} </>}🛒({cartItems.length})
+                        {/** Fix this reduce function */}
+                        {subtotal > 0 && <>${subtotal.toFixed(2)} </>}🛒({cartItems.reduce(
+                            (accumulator, item) => accumulator + item.quantity, 0
+                        )})
                         </Link>
                     </li>
                     <li>
