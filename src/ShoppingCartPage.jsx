@@ -107,11 +107,11 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
           <div className="summary-row"><span>Shipping</span><span>${shipping.toFixed(2)}</span></div>
           <div className="summary-row"><span>Tax</span><span>${tax.toFixed(2)}</span></div>
           <div className="summary-row total"><span>Total</span><span>${total.toFixed(2)}</span></div>
-          <div className='flex flex-row gap-3 mt-4 justify-end items-center'>
-            <button className="checkout-btn px-4 py-2 text-base" onClick={handleCheckout}>
+          <div className='flex flex-row justify-between items-center'>
+            <button className="checkout-btn" onClick={handleCheckout}>
               Checkout
             </button>
-            <button className=" px-4 py-2 text-base" onClick={handleEmptyCart}>
+            <button className="checkout-btn" onClick={handleEmptyCart}>
               Empty Cart
             </button>
           </div>

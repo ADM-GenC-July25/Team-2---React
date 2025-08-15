@@ -9,11 +9,10 @@ import menuData from "./assets/menuData";
 import Footer from "./components/Footer";
 import MenuPage from "./MenuPage";
 import MenuItemPage from "./MenuItemPage";
-import { CartProvider } from "./CartContext";
 
 function App() {
   return (
-    <CartProvider >
+    <>
       <Router>
         <NavBar />
         <Routes>
@@ -27,7 +26,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </CartProvider>
+    </>
   );
 }
 
