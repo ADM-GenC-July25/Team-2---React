@@ -41,7 +41,7 @@ const handleAddToCart = (e) => {
       <div className="menuitem-content">
         <h3 className="menuitem-title">{item.name}</h3>
         <p className="menuitem-description">{item.description}</p>
-        <div className="menuitem-price">{item.price}</div>
+        <div className="menuitem-price">{item.price.toFixed(2)}</div>
       </div>
       <button
         className="menuitem-button"

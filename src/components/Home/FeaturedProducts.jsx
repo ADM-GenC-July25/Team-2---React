@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCart } from '../CartContext'
+import { useCart } from '../../CartContext'
 
   const sectionStyle = {
     padding: '40px 20px',
@@ -35,21 +35,21 @@ function FeaturedProducts() {
       id: 'lunr-cheese',
       name: 'Lunar Cheese Craters',
       description: 'Aged moon cheese melted in volcanic craters, served with asteroid herb seasoning',
-      price: "$299",
+      price: 299.00,
       emoji: '🌙'
     },
     {
       id: 'solar-flare',
       name: 'Solar Flare Soup',
       description: 'Spicy plasma broth with floating meteorite dumplings, guaranteed to warm your soul',
-      price: "$189",
+      price: 189.00,
       emoji: '🔥'
     },
     {
       id: 'galaxy-smoothie',
       name: 'Galaxy Swirl Smoothie',
       description: 'Nebula fruit blend with stardust sprinkles, tastes like the cosmos in a glass',
-      price: "$149",
+      price: 149.00,
       emoji: '🌌'
     }
   ];
@@ -127,7 +127,7 @@ function FeaturedProducts() {
                 alignItems: 'center',
                 marginTop: '20px'
               }}>
-                <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ {item.price} Credits</span>
+                <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ ${item.price.toFixed(2)} Credits</span>
                 <Button onClick={() => handleAddToCart(item)}>Add to Cart</Button>
               </div>
             </div>
