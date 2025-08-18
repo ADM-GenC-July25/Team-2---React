@@ -76,16 +76,16 @@ function MenuPage() {
         // Price range filter (extract number from price string)
         let matchesPrice = true;
         if (priceRange !== "all") {
-          const itemPrice = parseInt(item.price.replace(/[^\d]/g, ''));
+          const itemPrice = item.price;
           switch(priceRange) {
-            case "under-200":
-              matchesPrice = itemPrice < 200;
+            case "under-5":
+              matchesPrice = itemPrice < 5;
               break;
-            case "200-400":
-              matchesPrice = itemPrice >= 200 && itemPrice <= 400;
+            case "5-10":
+              matchesPrice = itemPrice >= 5 && itemPrice <= 10;
               break;
-            case "over-400":
-              matchesPrice = itemPrice > 400;
+            case "over-10":
+              matchesPrice = itemPrice > 10;
               break;
           }
         }
@@ -242,9 +242,9 @@ function MenuPage() {
                 }}
               >
                 <option value="all">All Prices</option>
-                <option value="under-200">Under 200 Credits</option>
-                <option value="200-400">200-400 Credits</option>
-                <option value="over-400">Over 400 Credits</option>
+                <option value="under-5">Under 5</option>
+                <option value="5-10">5 - 10</option>
+                <option value="over-10">Over 10</option>
               </select>
             </div>
  
