@@ -1,61 +1,50 @@
 import React from 'react'
 import { useCart } from '../CartContext'
+import featuredProductsData from '../assets/featuredProductsData'
 
-  const sectionStyle = {
-    padding: '40px 20px',
-    maxWidth: '1200px',
-    margin: '0 auto'
-  };
- 
-  // Product card styles
-  const productGridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '30px',
-    marginTop: '30px'
-  };
- 
-  const productCardStyle = {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    borderRadius: '20px',
-    padding: '25px',
-    color: 'white',
-    textAlign: 'center',
-    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    cursor: 'pointer'
-  };
- 
+const sectionStyle = {
+  padding: '40px 20px',
+  maxWidth: '1200px',
+  margin: '0 auto'
+};
+
+// Product card styles
+const productGridStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: '30px',
+  marginTop: '30px'
+};
+
+const productCardStyle = {
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  borderRadius: '20px',
+  padding: '25px',
+  color: 'white',
+  textAlign: 'center',
+  boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)',
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  cursor: 'pointer'
+};
 
 function FeaturedProducts() {
   const { addToCart } = useCart();
 
-  const featuredItems = [
-    {
-      id: 'lunr-cheese',
-      name: 'Lunar Cheese Craters',
-      description: 'Aged moon cheese melted in volcanic craters, served with asteroid herb seasoning',
-      price: "$299",
-      emoji: '🌙'
-    },
-    {
-      id: 'solar-flare',
-      name: 'Solar Flare Soup',
-      description: 'Spicy plasma broth with floating meteorite dumplings, guaranteed to warm your soul',
-      price: "$189",
-      emoji: '🔥'
-    },
-    {
-      id: 'galaxy-smoothie',
-      name: 'Galaxy Swirl Smoothie',
-      description: 'Nebula fruit blend with stardust sprinkles, tastes like the cosmos in a glass',
-      price: "$149",
-      emoji: '🌌'
-    }
-  ];
+  // Get featured items from the data file
+  const featuredItems = featuredProductsData[0].items;
 
   const handleAddToCart = (item) => {
-    addToCart(item);
+    // Convert the item format to match what the cart expects
+    const cartItem = {
+      id: item.id,
+      name: item.name,
+      shortDesc: item.name,
+      description: item.description,
+      price: item.price,
+      emoji: item.emoji,
+      quantity: 1
+    };
+    addToCart(cartItem);
     // Optional: Show a toast or feedback
     // alert(`${item.name} added to cart!`);
   };
@@ -66,7 +55,7 @@ function FeaturedProducts() {
       <style>
         {`
           @keyframes pulse {
-            0%, 100% { transform: scale(1); }
+            
             50% { transform: scale(1.1); }
           }
           
@@ -79,17 +68,17 @@ function FeaturedProducts() {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
           }
- 
+
           .nav-link:hover {
             background: rgba(78, 205, 196, 0.2);
             transform: translateY(-2px);
           }
- 
+
           .product-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
           }
- 
+
           .login-button:hover {
             transform: scale(1.05);
           }
@@ -112,8 +101,8 @@ function FeaturedProducts() {
             Discover our most popular interplanetary dishes, crafted by expert alien chefs
           </p>
         </div>
- 
-                <div style={productGridStyle}>
+
+        <div style={productGridStyle}>
           {featuredItems.map((item) => (
             <div key={item.id} style={productCardStyle} className="product-card">
               <div style={{ fontSize: '3em', marginBottom: '15px' }}>{item.emoji}</div>
