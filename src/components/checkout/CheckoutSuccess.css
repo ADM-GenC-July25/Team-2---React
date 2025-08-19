@@ -1,0 +1,98 @@
+/* Success State */
+.checkout-page {
+  background: #101014;
+  min-height: 100vh;
+  font-family: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #f5f6fa;
+  padding: 40px 20px;
+}
+
+.checkout-success {
+  text-align: center;
+  padding: 80px 20px;
+  background: #18191b;
+  border: 2px solid #23272a;
+  border-radius: 18px;
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #00e676;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 auto 30px;
+}
+
+.checkout-success h1 {
+  font-size: 2.2rem;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.checkout-success p {
+  color: #b2becd;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.success-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: #2196f3;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1769aa;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #2196f3;
+  border: 2px solid #2196f3;
+}
+
+.btn-secondary:hover {
+  background: #2196f3;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .success-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+} 

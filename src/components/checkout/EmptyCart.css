@@ -1,0 +1,48 @@
+/* Empty Cart State */
+.checkout-page {
+  background: #101014;
+  min-height: 100vh;
+  font-family: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #f5f6fa;
+  padding: 40px 20px;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 80px 20px;
+  background: #18191b;
+  border: 2px solid #23272a;
+  border-radius: 18px;
+  margin: 40px auto;
+  max-width: 500px;
+}
+
+.empty-cart h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.empty-cart p {
+  color: #b2becd;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  font-family: inherit;
+  background: #2196f3;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1769aa;
+  transform: translateY(-1px);
+} 
