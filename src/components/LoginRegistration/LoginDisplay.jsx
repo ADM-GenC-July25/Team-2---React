@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import SubmissionButton from "../SubmissionButton";
+import { useLogin } from "./LoginContext";
 
 function LoginDisplay({ email, setEmail, password, setPassword, setPage }) {
   const navigate = useNavigate();
+
+  const { isLoggedIn, setIsLoggedIn } = useLogin();
 
   function changePassword(event) {
     setPassword(event.target.value);
@@ -19,6 +22,7 @@ function LoginDisplay({ email, setEmail, password, setPassword, setPage }) {
   function onClickLogIn() {
     // TODO: LOG IN THE USER
     console.log("ATTEMPED LOGIN");
+    setIsLoggedIn(true);
     navigate("/");
   }
 

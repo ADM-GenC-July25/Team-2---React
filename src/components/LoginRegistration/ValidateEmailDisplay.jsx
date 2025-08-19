@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "./LoginContext";
 import SubmissionButton from "../SubmissionButton";
 
 function ValidateEmailDisplay({ code, setCode, setPage }) {
   const navigate = useNavigate();
+
+  const { isLoggedIn, setIsLoggedIn } = useLogin();
 
   function changeCode(event) {
     setCode(event.target.value);
@@ -17,6 +20,7 @@ function ValidateEmailDisplay({ code, setCode, setPage }) {
     let isValid = false;
     setCode("");
     console.log("ATTEMPED SUBMISSION");
+    setIsLoggedIn(true);
     navigate("/");
   }
 
