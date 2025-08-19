@@ -1,6 +1,6 @@
 import React from 'react'
-import { useCart } from '../CartContext'
-import featuredProductsData from '../assets/featuredProductsData'
+import { useCart } from '../../CartContext'
+import featuredProductsData from '../../assets/featuredProductsData'
 
 const sectionStyle = {
   padding: '40px 20px',
@@ -116,7 +116,7 @@ function FeaturedProducts() {
                 alignItems: 'center',
                 marginTop: '20px'
               }}>
-                <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ {item.price} Credits</span>
+                <span style={{ fontSize: '1.3em', fontWeight: 'bold' }}>⭐ ${item.price.toFixed(2)} Credits</span>
                 <Button onClick={() => handleAddToCart(item)}>Add to Cart</Button>
               </div>
             </div>

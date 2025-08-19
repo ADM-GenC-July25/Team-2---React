@@ -15,7 +15,7 @@ export function CartProvider({ children }) {
       id: item.id || item.shortDesc || item.name,
       shortDesc: item.shortDesc || item.name,
       longDesc: item.longDesc || item.description,
-      price: typeof item.price === 'string' ? parseFloat(item.price.replace('$', '')) : item.price,
+      price: item.price,
       img: item.img || '/default-product.jpg', // fallback image
       quantity: item.quantity || 1,
       // Keep original item for compatibility
@@ -49,8 +49,16 @@ export function CartProvider({ children }) {
     setCartItems([]);
   }
 
+  function calculateCosts() {
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.07; // assuming 7% tax
+    const shipping = subtotal > 0 ? 5 : 0; // flat $5 shipping if there's any item
+    const total = subtotal + tax + shipping;
+    return { subtotal, tax, shipping, total };
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, emptyCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, emptyCart, calculateCosts }}>
       {children}
     </CartContext.Provider>
   );
