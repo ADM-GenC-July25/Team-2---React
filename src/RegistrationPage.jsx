@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { sectionStyle } from "./components/LoginRegistration/StyledComponents/LoginStyles";
+import LoginRegistrationHeader from "./components/LoginRegistration/StyledComponents/LoginRegistrationHeader";
 import RegistrationDisplay from "./components/LoginRegistration/RegistrationDisplay";
 import ValidateEmailDisplay from "./components/LoginRegistration/ValidateEmailDisplay";
 
@@ -17,18 +19,36 @@ function RegistrationPage() {
     registrationPage = true;
   }
 
-  return registrationPage ? (
-    <RegistrationDisplay
-      email={email}
-      setEmail={setEmail}
-      password={password}
-      setPassword={setPassword}
-      password2={password2}
-      setPassword2={setPassword2}
-      setPage={setPage}
-    />
-  ) : (
-    <ValidateEmailDisplay code={code} setCode={setCode} setPage={setPage} />
+  return (
+    <div
+      style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f8f9ff" }}
+    >
+      <section style={sectionStyle} id="login">
+        <LoginRegistrationHeader
+          title={"🚀 Join Our Space Crew"}
+          content={
+            "Join the crew to save your credentials and view past galactic orders"
+          }
+        />
+        {registrationPage ? (
+          <RegistrationDisplay
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            password2={password2}
+            setPassword2={setPassword2}
+            setPage={setPage}
+          />
+        ) : (
+          <ValidateEmailDisplay
+            code={code}
+            setCode={setCode}
+            setPage={setPage}
+          />
+        )}
+      </section>
+    </div>
   );
 }
 

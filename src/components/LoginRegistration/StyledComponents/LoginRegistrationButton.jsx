@@ -1,8 +1,20 @@
-import { buttonStyle } from "./LoginStyles";
+import { buttonStyle, disabledButtonStyle } from "./LoginStyles";
 
-const LoginRegistrationButton = () => (
-  <button type="submit" style={buttonStyle} className="login-button">
-    🚀 Launch Into Account
+const LoginRegistrationButton = ({ children, isActive, ...props }) => (
+  <button
+    type="submit"
+    style={isActive ? buttonStyle : disabledButtonStyle}
+    className={"login-button"}
+    {...props}
+  >
+    <style>
+      {`
+          .login-button:hover {
+            transform: scale(1.05);
+          }
+        `}
+    </style>
+    {children}
   </button>
 );
 

@@ -36,3 +36,12 @@ export const buttonStyle = {
   cursor: "pointer",
   transition: "transform 0.2s ease",
 };
+
+export const disabledButtonStyle = {
+  ...buttonStyle,
+  background: "linear-gradient(45deg, #cccccc, #999999)",
+  color: "#666666",
+  cursor: "not-allowed",
+  opacity: 0.6,
+  pointerEvents: "none", // prevents interaction
+};

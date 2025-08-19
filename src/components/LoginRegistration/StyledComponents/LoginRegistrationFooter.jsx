@@ -1,4 +1,8 @@
-const LoginRegistrationFooter = () => (
+const LoginRegistrationFooter = ({
+  switchScreenPrompt,
+  clickableText,
+  onClick,
+}) => (
   <div
     style={{
       textAlign: "center",
@@ -7,7 +11,7 @@ const LoginRegistrationFooter = () => (
     }}
   >
     <p style={{ fontSize: "0.9em" }}>
-      New to the cosmos?
+      {switchScreenPrompt}
       <a
         href="#signup"
         style={{
@@ -15,8 +19,9 @@ const LoginRegistrationFooter = () => (
           textDecoration: "underline",
           marginLeft: "5px",
         }}
+        onClick={onClick}
       >
-        Create Space Account
+        {clickableText}
       </a>
     </p>
   </div>
