@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './styles/CheckoutPage.css';
 
 function CheckoutPage() {
-  const { cartItems, emptyCart } = useCart();
+  const { cartItems, emptyCart, calculateCosts } = useCart();
   const navigate = useNavigate();
   
   // Form states
@@ -42,11 +42,13 @@ function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
 
-  // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity, 0);
-  const tax = subtotal * 0.07;
-  const shipping = subtotal > 50 ? 0 : 8.99; // Free shipping over $50
-  const total = subtotal + tax + shipping;
+  // // Calculate totals
+  // const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // const tax = subtotal * 0.07;
+  // const shipping = subtotal > 50 ? 0 : 8.99; // Free shipping over $50
+  // const total = subtotal + tax + shipping;
+
+  const {subtotal, tax, shipping, total} = calculateCosts();
 
   // Handle input changes
   const handleInputChange = (e) => {
@@ -497,7 +499,7 @@ function CheckoutPage() {
                   <div className="item-name">{item.shortDesc}</div>
                   <div className="item-quantity">Qty: {item.quantity}</div>
                 </div>
-                <div className="item-price">${(parseFloat(item.price.replace('$', '')) * item.quantity).toFixed(2)}</div>
+                <div className="item-price">${item.price.toFixed(2)}</div>
               </div>
             ))}
           </div>
