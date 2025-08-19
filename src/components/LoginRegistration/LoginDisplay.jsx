@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import SubmissionButton from "../SubmissionButton";
 import { useLogin } from "./LoginContext";
+import TestLogin from "./StyledComponents/TestLogin";
+import HomeLogin from "../HomeLogin";
 
 function LoginDisplay({ email, setEmail, password, setPassword, setPage }) {
   const navigate = useNavigate();
@@ -33,6 +35,8 @@ function LoginDisplay({ email, setEmail, password, setPassword, setPage }) {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center font-[Nunito] px-4">
+      <HomeLogin />
+      <TestLogin />
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-4xl font-bold text-center mb-6">Login</h1>
 
