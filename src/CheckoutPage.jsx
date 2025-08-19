@@ -15,7 +15,7 @@ import EmptyCart from './components/checkout/EmptyCart';
 import useCheckoutForm from './hooks/useCheckoutForm';
 
 function CheckoutPage() {
-  const { cartItems, emptyCart } = useCart();
+  const { cartItems, emptyCart, calculateCosts } = useCart();
   const navigate = useNavigate();
   
   // Use custom hook for form management
@@ -24,11 +24,13 @@ function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
 
-  // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity, 0);
-  const tax = subtotal * 0.07;
-  const shipping = subtotal > 50 ? 0 : 8.99; // Free shipping over $50
-  const total = subtotal + tax + shipping;
+  // // Calculate totals
+  // const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // const tax = subtotal * 0.07;
+  // const shipping = subtotal > 50 ? 0 : 8.99; // Free shipping over $50
+  // const total = subtotal + tax + shipping;
+
+  const {subtotal, tax, shipping, total} = calculateCosts();
 
   // Handle order submission
   const handleSubmitOrder = async (e) => {
@@ -89,6 +91,7 @@ function CheckoutPage() {
             />
           </form>
         </div>
+
 
         <OrderSummary 
           cartItems={cartItems}
