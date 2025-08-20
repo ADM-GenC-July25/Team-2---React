@@ -14,7 +14,7 @@ function OrderSummary({ cartItems, subtotal, tax, shipping, total, isProcessing,
               <div className="item-name">{item.shortDesc}</div>
               <div className="item-quantity">Qty: {item.quantity}</div>
             </div>
-            <div className="item-price">${(parseFloat(item.price.replace('$', '')) * item.quantity).toFixed(2)}</div>
+            <div className="item-price">${(item.price).toFixed(2)}</div>
           </div>
         ))}
       </div>
