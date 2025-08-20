@@ -1,10 +1,13 @@
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { CartProvider } from "./CartContext";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { CartProvider } from "./CartContext.jsx";
+import { LoginProvider } from "./components/LoginRegistration/LoginContext.jsx";
 
-const entryPoint = document.getElementById("root");
-createRoot(entryPoint).render(
-    <CartProvider>
-        <App/>
-    </CartProvider>);
+createRoot(document.getElementById("root")).render(
+  <CartProvider>
+    <LoginProvider>
+      <App />
+    </LoginProvider>
+  </CartProvider>
+);
