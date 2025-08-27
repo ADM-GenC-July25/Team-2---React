@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18.x
+      nodejs: 20.x
   pre_build:
     commands:
       - echo In the pre_build phase...
@@ -17,5 +17,5 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'build'
+  base-directory: 'dist'
   discard-paths: no
