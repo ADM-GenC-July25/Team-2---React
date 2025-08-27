@@ -5,10 +5,9 @@ import ShoppingCartPage from "./ShoppingCartPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage";
-import menuData from "./assets/menuData";
 import Footer from "./components/Footer";
-import MenuPage from "./MenuPage";
 import MenuItemPage from "./MenuItemPage";
+import MenuPage from "./MenuPage";
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<HomePage menuData={menuData} />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<MenuPage />} />
           <Route path="/menuitem/:id" element={<MenuItemPage />} />
           <Route path="/cart" element={<ShoppingCartPage />} />
