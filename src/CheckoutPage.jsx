@@ -16,13 +16,8 @@ function CheckoutPage() {
   const navigate = useNavigate();
 
   // Use custom hook for form management
-  const {
-    formData,
-    errors,
-    handleInputChange,
-    handleCardNumberChange,
-    validateForm,
-  } = useCheckoutForm();
+  const { formData, errors, handleInputChange, validateForm } =
+    useCheckoutForm();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
