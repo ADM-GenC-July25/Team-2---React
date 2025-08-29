@@ -13,6 +13,7 @@ import EmptyCart from './components/checkout/EmptyCart';
 
 // Import custom hook
 import useCheckoutForm from './hooks/useCheckoutForm';
+import { useDeliveryMethod } from './DeliveryMethodContext';
 
 function CheckoutPage() {
   const { cartItems, emptyCart, calculateCosts } = useCart();
@@ -21,8 +22,13 @@ function CheckoutPage() {
   // Use custom hook for form management
   const { formData, errors, handleInputChange, handleCardNumberChange, validateForm } = useCheckoutForm();
   
+  const { method } = useDeliveryMethod();
+  
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+
+  // Calculate delivery fee
+  const deliveryFee = method === 'delivery' ? 5 : 0;
 
   // // Calculate totals
   // const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -31,6 +37,7 @@ function CheckoutPage() {
   // const total = subtotal + tax + shipping;
 
   const {subtotal, tax, shipping, total} = calculateCosts();
+  const finalTotal = total + deliveryFee;
 
   // Handle order submission
   const handleSubmitOrder = async (e) => {
@@ -98,9 +105,11 @@ function CheckoutPage() {
           subtotal={subtotal}
           tax={tax}
           shipping={shipping}
-          total={total}
+          total={finalTotal}
           isProcessing={isProcessing}
           onSubmitOrder={handleSubmitOrder}
+          deliveryFee={deliveryFee}
+          deliveryMethod={method}
         />
       </div>
     </div>

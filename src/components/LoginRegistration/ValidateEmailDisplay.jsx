@@ -8,7 +8,7 @@ import LoginRegistrationButton from "./StyledComponents/LoginRegistrationButton"
 function ValidateEmailDisplay({ code, setCode, setPage }) {
   const navigate = useNavigate();
 
-  const { isLoggedIn, setIsLoggedIn } = useLogin();
+  const { isLoggedIn, setIsLoggedIn, setUserData } = useLogin();
 
   function changeCode(event) {
     setCode(event.target.value);
@@ -23,6 +23,15 @@ function ValidateEmailDisplay({ code, setCode, setPage }) {
     let isValid = false;
     setCode("");
     console.log("ATTEMPED SUBMISSION");
+    
+    // Set dummy user data for now - this will be replaced with backend data later
+    setUserData({
+      firstName: "New",
+      lastName: "Recruit",
+      username: "newrecruit",
+      email: "newrecruit@spacecrew.com"
+    });
+    
     setIsLoggedIn(true);
     navigate("/");
   }

@@ -9,7 +9,7 @@ import LoginRegistrationButton from "./StyledComponents/LoginRegistrationButton"
 function LoginDisplay({ email, setEmail, password, setPassword, setPage }) {
   const navigate = useNavigate();
 
-  const { isLoggedIn, setIsLoggedIn } = useLogin();
+  const { isLoggedIn, setIsLoggedIn, setUserData } = useLogin();
 
   function changePassword(event) {
     setPassword(event.target.value);
@@ -26,6 +26,15 @@ function LoginDisplay({ email, setEmail, password, setPassword, setPage }) {
   function onClickLogIn() {
     // TODO: LOG IN THE USER
     console.log("ATTEMPED LOGIN");
+    
+    // Set dummy user data for now - this will be replaced with backend data later
+    setUserData({
+      firstName: "Space",
+      lastName: "Captain",
+      username: "spacecaptain",
+      email: email
+    });
+    
     setIsLoggedIn(true);
     navigate("/");
   }

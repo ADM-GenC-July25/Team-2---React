@@ -1,7 +1,7 @@
 import React from 'react';
 import './OrderSummary.css';
 
-function OrderSummary({ cartItems, subtotal, tax, shipping, total, isProcessing, onSubmitOrder }) {
+function OrderSummary({ cartItems, subtotal, tax, shipping, total, isProcessing, onSubmitOrder, deliveryFee = 0, deliveryMethod }) {
   return (
     <div className="order-summary">
       <h2>Order Summary</h2>
@@ -28,6 +28,12 @@ function OrderSummary({ cartItems, subtotal, tax, shipping, total, isProcessing,
           <span>Shipping</span>
           <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
         </div>
+        {deliveryMethod === 'delivery' && (
+          <div className="total-row">
+            <span>Delivery Fee</span>
+            <span>${deliveryFee.toFixed(2)}</span>
+          </div>
+        )}
         <div className="total-row">
           <span>Tax</span>
           <span>${tax.toFixed(2)}</span>
@@ -50,4 +56,4 @@ function OrderSummary({ cartItems, subtotal, tax, shipping, total, isProcessing,
   );
 }
 
-export default OrderSummary; 
+export default OrderSummary;

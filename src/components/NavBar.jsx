@@ -4,7 +4,7 @@ import { useLogin } from "./LoginRegistration/LoginContext";
 
 function NavBar() {
   const { cartItems, calculateCosts } = useCart();
-  const { isLoggedIn, setIsLoggedIn } = useLogin();
+  const { isLoggedIn, setIsLoggedIn, setUserData } = useLogin();
   const { subtotal } = calculateCosts();
   return (
     <nav className="sticky top-0 left-0 right-0 w-full z-50 bg-gray-800 text-white shadow">
@@ -16,6 +16,11 @@ function NavBar() {
           <li>
             <Link to="/products">Menu</Link>
           </li>
+          {isLoggedIn && (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          )}
         </div>
         <div className="flex space-x-4">
           <li>
@@ -34,7 +39,10 @@ function NavBar() {
           </li>
           <li>
             {isLoggedIn ? (
-              <button onClick={() => setIsLoggedIn(false)}>Log Out</button>
+              <button onClick={() => {
+                setIsLoggedIn(false);
+                setUserData({ firstName: "", lastName: "", username: "", email: "" });
+              }}>Log Out</button>
             ) : (
               <Link to="/login">Login</Link>
             )}

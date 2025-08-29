@@ -5,14 +5,16 @@ import ShoppingCartPage from "./ShoppingCartPage";
 import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage";
+import ProfilePage from "./ProfilePage";
 import menuData from "./assets/menuData";
 import Footer from "./components/Footer";
 import MenuPage from "./MenuPage";
 import MenuItemPage from "./MenuItemPage";
+import { DeliveryMethodProvider } from "./DeliveryMethodContext";
 
 function App() {
   return (
-    <>
+    <DeliveryMethodProvider>
       <Router>
         <NavBar />
         <Routes>
@@ -23,10 +25,11 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <Footer />
       </Router>
-    </>
+    </DeliveryMethodProvider>
   );
 }
 

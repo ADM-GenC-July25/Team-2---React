@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useCart } from './CartContext'
 import { useNavigate } from 'react-router-dom'
+import { useDeliveryMethod } from './DeliveryMethodContext';
 import './styles/ShoppingCartPage.dark.css'
 
 function ShoppingCartPage({ onNavigate, onProductClick }) {
@@ -53,6 +54,38 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
 
   const numberOfItems = cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0);
 
+  const DeliveryPickupSelector = () => {
+    const { method, setMethod } = useDeliveryMethod();
+    return (
+      <div style={{ margin: '2rem 0' }}>
+        <div style={{ fontWeight: 'bold', marginBottom: '1rem', letterSpacing: '1px' }}>METHOD</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 500 }}>
+            <input
+              type="radio"
+              name="deliveryMethod"
+              value="delivery"
+              checked={method === 'delivery'}
+              onChange={() => setMethod('delivery')}
+              style={{ accentColor: '#222', width: 18, height: 18 }}
+            />
+            Delivery
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 500 }}>
+            <input
+              type="radio"
+              name="deliveryMethod"
+              value="pickup"
+              checked={method === 'pickup'}
+              onChange={() => setMethod('pickup')}
+              style={{ accentColor: '#222', width: 18, height: 18 }}
+            />
+            Pickup
+          </label>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="shopping-cart-page-wrapper">
@@ -119,6 +152,7 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
           </div>
         </div>
       </div>
+      <DeliveryPickupSelector />
     </div>
   );
 }

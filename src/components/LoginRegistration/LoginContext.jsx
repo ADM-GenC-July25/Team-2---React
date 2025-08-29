@@ -6,9 +6,15 @@ const LoginContext = createContext();
 // Create a provider component
 export const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: ""
+  });
 
   return (
-    <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn, userData, setUserData }}>
       {children}
     </LoginContext.Provider>
   );
