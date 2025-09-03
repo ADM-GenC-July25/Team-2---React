@@ -1,13 +1,7 @@
-import MenuItem from './MenuItem';
+import MenuItem from "./MenuItem";
 
-function MenuItemListing({ menuItem, addToCart, openItemPage }) {
-  return (
-    <MenuItem 
-      item={menuItem} 
-      addToCart={addToCart} 
-      openItemPage={openItemPage} 
-    />
-  );
+function MenuItemListing({ menuItem, addToCart }) {
+  return <MenuItem item={menuItem} addToCart={addToCart} />;
 }
 
 export default MenuItemListing;
