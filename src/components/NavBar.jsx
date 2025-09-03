@@ -33,11 +33,11 @@ function NavBar() {
             <Link to="/checkout">Checkout</Link>
           </li>
           <li>
-            {isLoggedIn ? (
+            {/*isLoggedIn ? (
               <button onClick={() => setIsLoggedIn(false)}>Log Out</button>
             ) : (
               <Link to="/login">Login</Link>
-            )}
+            )*/}
           </li>
         </div>
       </ul>
