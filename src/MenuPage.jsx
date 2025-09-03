@@ -84,6 +84,9 @@ function MenuPage() {
         spiceLevel === "all" ||
         (item.spiceLevel && item.spiceLevel === spiceLevel);
 
+      const isAvailable =
+      item.availability === 1;
+
       const matchesCategory =
         selectedCategory === "all" ||
         item.category.toLowerCase() === selectedCategory;
@@ -93,7 +96,8 @@ function MenuPage() {
         matchesAllergens &&
         matchesPrice &&
         matchesSpice &&
-        matchesCategory
+        matchesCategory &&
+        isAvailable
       );
     });
   };
