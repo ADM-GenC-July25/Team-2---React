@@ -1,12 +1,14 @@
 package com.cognizant.restaurant.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.restaurant.entity.Item;
+import com.cognizant.restaurant.dto.ItemProjection;
 import com.cognizant.restaurant.services.ItemService;
 
 @RestController
@@ -20,7 +22,7 @@ public class ItemController {
 	}
 
 	@GetMapping("/all")
-	public List<Item> getAllItems() {
+	public List<ItemProjection> getAllItems() {
 		return itemService.getAllItems();
 	}
 	
@@ -28,4 +30,15 @@ public class ItemController {
 	public void storeAllObjects() {
 		itemService.setAllItems();
 	}
+	
+	@GetMapping("/options")
+	public Map<String, List<String>> getOptions(){
+		return itemService.getOptions();
+	}
+	
+	@GetMapping("/featured/{number}")
+	public List<ItemProjection> getFeaturedItems(@PathVariable int number){
+		return itemService.getFeaturedItems(number);
+	}
+	
 }
