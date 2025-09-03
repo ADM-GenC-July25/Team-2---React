@@ -1,4 +1,3 @@
-import Inquiry from "./components/Home/Inquiry";
 import Banner from "./components/Home/Banner";
 import FeaturedProducts from "./components/Home/FeaturedProducts";
 
@@ -8,7 +7,6 @@ function HomePage() {
       <Banner />
       <FeaturedProducts />
       {/* <HomeLogin/> */}
-      <Inquiry />
     </div>
   );
 }
