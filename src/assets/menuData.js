@@ -13,7 +13,7 @@ const allergenOptions = [
 
 const spiceLevels = ["mild", "medium", "hot", "solar-flare"];
 
-const menuData = [
+let menuData = [
   {
     id: 1,
     name: "Cosmic Coffee",
@@ -22,6 +22,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 4.5,
     allergens: ["meteor-dust"],
+    img: "",
+    availability: 1,
+    popularity: 3,
   },
   {
     id: 2,
@@ -31,6 +34,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 7.0,
     allergens: ["meteor-dust"],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 3,
@@ -40,6 +46,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 9.25,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 4,
@@ -49,6 +58,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 10.0,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 5,
@@ -59,6 +71,9 @@ const menuData = [
     spiceLevel: spiceLevels[1],
     price: 10.0,
     allergens: ["plasma-sensitive", "meteor-dust"],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 6,
@@ -68,6 +83,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 10.0,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 7,
@@ -77,6 +95,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 6.5,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 8,
@@ -86,6 +107,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 7.75,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 5,
   },
   {
     id: 9,
@@ -95,6 +119,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 8.25,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 10,
@@ -104,6 +131,9 @@ const menuData = [
     spiceLevel: spiceLevels[2],
     price: 15.0,
     allergens: ["alien-protein", "synthetic-compounds"],
+    img: "",
+    availability: 1,
+    popularity: 7,
   },
   {
     id: 11,
@@ -113,6 +143,9 @@ const menuData = [
     spiceLevel: spiceLevels[2],
     price: 14.0,
     allergens: ["gluten", "eggs"],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 12,
@@ -122,6 +155,9 @@ const menuData = [
     spiceLevel: spiceLevels[1],
     price: 13.5,
     allergens: ["gluten", "soy"],
+    img: "",
+    availability: 1,
+    popularity: 4,
   },
   {
     id: 13,
@@ -132,6 +168,9 @@ const menuData = [
     spiceLevel: spiceLevels[1],
     price: 20.0,
     allergens: ["dairy"],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 14,
@@ -141,6 +180,9 @@ const menuData = [
     spiceLevel: spiceLevels[1],
     price: 16.0,
     allergens: ["gluten", "dairy", "eggs"],
+    img: "",
+    availability: 1,
+    popularity: 6,
   },
   {
     id: 15,
@@ -150,6 +192,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 12.0,
     allergens: ["gluten", "dairy", "eggs"],
+    img: "",
+    availability: 1,
+    popularity: 1,
   },
   {
     id: 16,
@@ -159,6 +204,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 6.0,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 17,
@@ -168,6 +216,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 11.0,
     allergens: ["plasma-sensitive"],
+    img: "",
+    availability: 1,
+    popularity: 2,
   },
   {
     id: 18,
@@ -177,6 +228,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 3.0,
     allergens: [],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 19,
@@ -186,6 +240,9 @@ const menuData = [
     spiceLevel: spiceLevels[0],
     price: 4.5,
     allergens: ["gluten", "dairy", "eggs", "nuts"],
+    img: "",
+    availability: 1,
+    popularity: 0,
   },
   {
     id: 20,
@@ -196,6 +253,9 @@ const menuData = [
     spiceLevel: spiceLevels[3],
     price: 8.0,
     allergens: ["dairy", "nuts", "plasma-sensitive", "synthetic-compounds"],
+    img: "",
+    availability: 1,
+    popularity: 8,
   },
 ];
 
