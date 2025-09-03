@@ -1,26 +1,24 @@
-import React, { useState } from 'react';
-import { useCart } from './CartContext';
-import { useNavigate } from 'react-router-dom';
-import './styles/CheckoutPage.css';
+import { useState } from "react";
+import { useCart } from "./CartContext";
+import { useNavigate } from "react-router-dom";
+import "./styles/CheckoutPage.css";
 
-// Import new components
-import ShippingForm from './components/checkout/ShippingForm';
-import BillingForm from './components/checkout/BillingForm';
-import PaymentForm from './components/checkout/PaymentForm';
-import OrderSummary from './components/checkout/OrderSummary';
-import CheckoutSuccess from './components/checkout/CheckoutSuccess';
-import EmptyCart from './components/checkout/EmptyCart';
+import OrderSummary from "./components/checkout/OrderSummary";
+import CheckoutSuccess from "./components/checkout/CheckoutSuccess";
+import EmptyCart from "./components/checkout/EmptyCart";
 
 // Import custom hook
-import useCheckoutForm from './hooks/useCheckoutForm';
+import useCheckoutForm from "./hooks/useCheckoutForm";
+import PersonalInfoForm from "./components/checkout/PersonalInfoForm";
 
 function CheckoutPage() {
   const { cartItems, emptyCart, calculateCosts } = useCart();
   const navigate = useNavigate();
-  
+
   // Use custom hook for form management
-  const { formData, errors, handleInputChange, handleCardNumberChange, validateForm } = useCheckoutForm();
-  
+  const { formData, errors, handleInputChange, validateForm } =
+    useCheckoutForm();
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
 
@@ -30,14 +28,14 @@ function CheckoutPage() {
   // const shipping = subtotal > 50 ? 0 : 8.99; // Free shipping over $50
   // const total = subtotal + tax + shipping;
 
-  const {subtotal, tax, shipping, total} = calculateCosts();
+  const { subtotal, tax, total } = calculateCosts();
 
   // Handle order submission
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
-    
+
     if (cartItems.length === 0) {
-      alert('Your cart is empty');
+      alert("Your cart is empty");
       return;
     }
 
@@ -46,7 +44,7 @@ function CheckoutPage() {
     }
 
     setIsProcessing(true);
-    
+
     // Simulate payment processing
     setTimeout(() => {
       setIsProcessing(false);
@@ -64,12 +62,15 @@ function CheckoutPage() {
     return <EmptyCart />;
   }
 
+  const orderTime = 20;
+
   return (
     <div className="checkout-page">
       <div className="checkout-container">
         <div className="checkout-main">
-          <h1>Checkout</h1>
-          
+          <h1>Checkout - Pick Up Order</h1>
+
+          {/* 
           <form onSubmit={handleSubmitOrder}>
             <ShippingForm 
               formData={formData}
@@ -89,15 +90,25 @@ function CheckoutPage() {
               onInputChange={handleInputChange}
               onCardNumberChange={handleCardNumberChange}
             />
-          </form>
+          </form>*/}
+          <p>Please review your order below.</p>
+          <PersonalInfoForm
+            formData={formData}
+            errors={errors}
+            onInputChange={handleInputChange}
+          />
+
+          <p>
+            Your order will be available for pickup in approximately {orderTime}{" "}
+            minutes.
+          </p>
+          <p>Please pickup your order from: Asteroid Belt, Milky Way Galaxy</p>
         </div>
 
-
-        <OrderSummary 
+        <OrderSummary
           cartItems={cartItems}
           subtotal={subtotal}
           tax={tax}
-          shipping={shipping}
           total={total}
           isProcessing={isProcessing}
           onSubmitOrder={handleSubmitOrder}
