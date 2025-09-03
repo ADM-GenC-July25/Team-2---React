@@ -120,4 +120,15 @@ public class ItemService {
 		PageRequest pageRequest = PageRequest.of(number, number, Sort.by(Sort.DEFAULT_DIRECTION.ASC, "popularity"));
 		return itemRepository.findAllProjectedBy(pageRequest);
 	}
+	
+	public List<ItemProjection> getFilteredItems(
+			String categoryName,
+			String spiceLevelName,
+			Double minPrice,
+			Double maxPrice,
+			List<String> execludedAllergens
+			){
+		return itemRepository.findFilteredItems(categoryName, spiceLevelName, minPrice, maxPrice, execludedAllergens);
+		
+	}
 }
