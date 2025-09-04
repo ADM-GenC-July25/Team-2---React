@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
  import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -20,10 +21,10 @@ public class Item {
 	private Long id;
 	private String name;
 	private String description;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "spicelevel_id")
 	private SpiceLevel spiceLevel;
 	private Double price;
