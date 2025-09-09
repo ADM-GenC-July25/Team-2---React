@@ -1,4 +1,23 @@
+const API_BASE_URL =
+  "http://978337test-env.eba-mz9qwfxb.us-west-2.elasticbeanstalk.com";
+
+/*
+
+// use this in this file
 const API_BASE_URL = "/api";
+
+// add this into vite.config.js for proxying to bypass CORS
+server: {
+    proxy: {
+      "/api": {
+        target:
+          "http://978337test-env.eba-mz9qwfxb.us-west-2.elasticbeanstalk.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+*/
 
 export const MenuRepository = {
   async fetchAllMenuItems() {
