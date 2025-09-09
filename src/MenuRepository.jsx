@@ -1,5 +1,9 @@
+/*
 const API_BASE_URL =
   "http://978337test-env.eba-mz9qwfxb.us-west-2.elasticbeanstalk.com";
+
+  */
+const API_BASE_URL = "/api";
 
 /*
 
