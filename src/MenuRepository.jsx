@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  "http://978337test-env.eba-mz9qwfxb.us-west-2.elasticbeanstalk.com";
+const API_BASE_URL = "/api";
 
 export const MenuRepository = {
   async fetchAllMenuItems() {
@@ -40,7 +39,7 @@ export const MenuRepository = {
     if (minPrice !== "") queryParams.push(`minPrice=${minPrice}`);
     if (maxPrice !== "") queryParams.push(`maxPrice=${maxPrice}`);
     if (allergens.length > 0)
-      queryParams.push(`allergens=${allergens.join(",")}`);
+      queryParams.push(`excludedAllergens=${allergens.join(",")}`);
 
     if (queryParams.length > 0) {
       url += "?" + queryParams.join("&");
