@@ -1,22 +1,150 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuItemListingGrid from "./components/MenuItemListingGrid";
-import menuData from "./assets/menuData";
-import { allergenOptions, spiceLevels } from "./assets/menuData";
+import { MenuRepository } from "./menuRepository";
 
 function MenuPage() {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedAllergens, setSelectedAllergens] = useState([]);
-  const [priceRange, setPriceRange] = useState("all");
-  const [spiceLevel, setSpiceLevel] = useState("all");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("all");
+  const [selectedSpiceLevel, setSelectedSpiceLevel] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
+
+  const [loading, setLoading] = useState();
+  const [error, setError] = useState(null);
+
+  const [categories, setCategories] = useState([]);
+  const [spiceLevels, setSpiceLevels] = useState([]);
+  const [allergens, setAllergens] = useState([]);
+  const [menuItems, setMenuItems] = useState([]);
 
   const DEFAULT_SEARCH_BAR_VALUE = "search menu items...";
 
-  const categories = [
-    "all",
-    ...new Set(menuData.map((item) => item.category.toLowerCase())),
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const [all, options] = await Promise.all([
+          MenuRepository.fetchAllMenuItems(),
+          MenuRepository.fetchMenuOptions(),
+        ]);
+        setMenuItems(all);
+        setCategories(["all", ...options.categories]);
+        setSpiceLevels(["all", ...options.spiceLevels]);
+        setAllergens(options.allergens);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  function GetItemScreen(totalItems) {
+    if (loading) {
+      return (
+        <div
+          style={{
+            textAlign: "center",
+            color: "#b8b8d1",
+            fontSize: "18px",
+            padding: "40px",
+            background: "rgba(255, 255, 255, 0.1)",
+            borderRadius: "15px",
+            margin: "0 auto",
+            maxWidth: "400px",
+          }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛸</div>
+          <p>Loading menu...</p>
+        </div>
+      );
+    } else if (error !== null) {
+      return (
+        <div
+          style={{
+            textAlign: "center",
+            color: "#b8b8d1",
+            fontSize: "18px",
+            padding: "40px",
+            background: "rgba(255, 255, 255, 0.1)",
+            borderRadius: "15px",
+            margin: "0 auto",
+            maxWidth: "400px",
+          }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛸</div>
+          <p>An error has occured in loading the menu!!!</p>
+        </div>
+      );
+    } else if (totalItems === 0) {
+      return (
+        <div
+          style={{
+            textAlign: "center",
+            color: "#b8b8d1",
+            fontSize: "18px",
+            padding: "40px",
+            background: "rgba(255, 255, 255, 0.1)",
+            borderRadius: "15px",
+            margin: "0 auto",
+            maxWidth: "400px",
+          }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛸</div>
+          <p>No cosmic delicacies match your criteria.</p>
+          <p style={{ fontSize: "14px", marginTop: "10px" }}>
+            Try adjusting your filters or search terms!
+          </p>
+        </div>
+      );
+    } else {
+      return <MenuItemListingGrid menuData={filteredMenuItems} searchTerm="" />;
+    }
+  }
+
+  async function fetchFilteredItems(
+    effectivePrice,
+    effectiveCategory,
+    effectiveSpice,
+    effectiveAllergens
+  ) {
+    let minPrice = "";
+    let maxPrice = "";
+
+    if (effectivePrice === "under-5") {
+      minPrice = "0";
+      maxPrice = "5";
+    }
+    if (effectivePrice === "5-10") {
+      minPrice = "5";
+      maxPrice = "10";
+    }
+    if (effectivePrice === "over-10") {
+      minPrice = "10";
+    }
+
+    let categoryQuery = effectiveCategory === "all" ? "" : effectiveCategory;
+    let spiceQuery = effectiveSpice === "all" ? "" : effectiveSpice;
+
+    try {
+      setLoading(true);
+      const menu = await MenuRepository.fetchFilteredMenuItems(
+        categoryQuery,
+        spiceQuery,
+        minPrice,
+        maxPrice,
+        effectiveAllergens
+      );
+      setMenuItems(menu);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   // Common allergens for space food
 
@@ -26,84 +154,73 @@ function MenuPage() {
 
   function handleCategoryChange(event) {
     setSelectedCategory(event.target.value);
+    fetchFilteredItems(
+      selectedPriceRange,
+      event.target.value,
+      selectedSpiceLevel,
+      selectedAllergens
+    );
   }
 
   function handleAllergenChange(allergen) {
-    setSelectedAllergens((prev) =>
-      prev.includes(allergen)
-        ? prev.filter((a) => a !== allergen)
-        : [...prev, allergen]
+    const newAllergens = selectedAllergens.includes(allergen)
+      ? selectedAllergens.filter((a) => a !== allergen)
+      : [...selectedAllergens, allergen];
+
+    setSelectedAllergens(newAllergens);
+
+    fetchFilteredItems(
+      selectedPriceRange,
+      selectedCategory,
+      selectedSpiceLevel,
+      newAllergens
     );
   }
 
   function handlePriceRangeChange(event) {
-    setPriceRange(event.target.value);
+    setSelectedPriceRange(event.target.value);
+    fetchFilteredItems(
+      event.target.value,
+      selectedCategory,
+      selectedSpiceLevel,
+      selectedAllergens
+    );
   }
 
   function handleSpiceLevelChange(event) {
-    setSpiceLevel(event.target.value);
+    setSelectedSpiceLevel(event.target.value);
+    fetchFilteredItems(
+      selectedPriceRange,
+      selectedCategory,
+      event.target.value,
+      selectedAllergens
+    );
   }
 
   function clearAllFilters() {
     setSearchText("");
+    if (
+      selectedCategory === "all" &&
+      selectedAllergens.length === 0 &&
+      selectedPriceRange === "all" &&
+      selectedSpiceLevel === "all"
+    ) {
+      return;
+    }
     setSelectedCategory("all");
     setSelectedAllergens([]);
-    setPriceRange("all");
-    setSpiceLevel("all");
+    setSelectedPriceRange("all");
+    setSelectedSpiceLevel("all");
+    fetchFilteredItems("all", "all", "all", []);
   }
 
-  const getFilteredMenuData = () => {
-    return menuData.filter((item) => {
-      const matchesSearch =
-        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchText.toLowerCase());
-
-      const matchesAllergens =
-        selectedAllergens.length === 0 ||
-        !selectedAllergens.some(
-          (allergen) => item.allergens && item.allergens.includes(allergen)
-        );
-
-      let matchesPrice = true;
-      if (priceRange !== "all") {
-        const itemPrice = item.price;
-        switch (priceRange) {
-          case "under-5":
-            matchesPrice = itemPrice < 5;
-            break;
-          case "5-10":
-            matchesPrice = itemPrice >= 5 && itemPrice <= 10;
-            break;
-          case "over-10":
-            matchesPrice = itemPrice > 10;
-            break;
-        }
-      }
-
-      const matchesSpice =
-        spiceLevel === "all" ||
-        (item.spiceLevel && item.spiceLevel === spiceLevel);
-
-      const isAvailable =
-      item.availability === 1;
-
-      const matchesCategory =
-        selectedCategory === "all" ||
-        item.category.toLowerCase() === selectedCategory;
-
-      return (
-        matchesSearch &&
-        matchesAllergens &&
-        matchesPrice &&
-        matchesSpice &&
-        matchesCategory &&
-        isAvailable
-      );
-    });
-  };
-
-  const filteredMenuData = getFilteredMenuData(); // flat array of items
-  const totalItems = filteredMenuData.length; // safe to call .length
+  const filteredMenuItems = menuItems.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+  const totalItems = filteredMenuItems.length;
 
   return (
     <div
@@ -178,7 +295,8 @@ function MenuPage() {
           onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
           onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
         >
-          🛸 {showFilters ? "Hide" : "Show"} Filters ({totalItems} items)
+          🛸 {showFilters ? "Hide" : "Show"} Filters (
+          {loading ? "Loading..." : `${totalItems} items`} )
         </button>
       </div>
 
@@ -232,9 +350,7 @@ function MenuPage() {
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
-                    {cat === "all"
-                      ? "All Categories"
-                      : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    {cat === "all" ? "All Categories" : cat}
                   </option>
                 ))}
               </select>
@@ -254,7 +370,7 @@ function MenuPage() {
                 💰 PRICE RANGE (Credits)
               </label>
               <select
-                value={priceRange}
+                value={selectedPriceRange}
                 onChange={handlePriceRangeChange}
                 style={{
                   width: "100%",
@@ -287,7 +403,7 @@ function MenuPage() {
                 🌶️ SPICE LEVEL
               </label>
               <select
-                value={spiceLevel}
+                value={selectedSpiceLevel}
                 onChange={handleSpiceLevelChange}
                 style={{
                   width: "100%",
@@ -299,11 +415,13 @@ function MenuPage() {
                   outline: "none",
                 }}
               >
-                <option value="all">All Spice Levels</option>
-                <option value={spiceLevels[0]}>Mild</option>
-                <option value={spiceLevels[1]}>Medium</option>
-                <option value={spiceLevels[2]}>Hot</option>
-                <option value={spiceLevels[3]}>Solar Flare</option>
+                {spiceLevels.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat === "all"
+                      ? "All Spice Levels"
+                      : cat.replace(/-/g, " ")}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -328,7 +446,7 @@ function MenuPage() {
                 gap: "10px",
               }}
             >
-              {allergenOptions.map((allergen) => (
+              {allergens.map((allergen) => (
                 <label
                   key={allergen}
                   style={{
@@ -375,28 +493,7 @@ function MenuPage() {
       )}
 
       {/* Results */}
-      {totalItems === 0 ? (
-        <div
-          style={{
-            textAlign: "center",
-            color: "#b8b8d1",
-            fontSize: "18px",
-            padding: "40px",
-            background: "rgba(255, 255, 255, 0.1)",
-            borderRadius: "15px",
-            margin: "0 auto",
-            maxWidth: "400px",
-          }}
-        >
-          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛸</div>
-          <p>No cosmic delicacies match your criteria.</p>
-          <p style={{ fontSize: "14px", marginTop: "10px" }}>
-            Try adjusting your filters or search terms!
-          </p>
-        </div>
-      ) : (
-        <MenuItemListingGrid menuData={filteredMenuData} searchTerm="" />
-      )}
+      {GetItemScreen(totalItems)}
     </div>
   );
 }
