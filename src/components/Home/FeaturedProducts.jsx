@@ -1,6 +1,6 @@
 import { useCart } from "../../CartContext";
 import { useEffect, useState } from "react";
-import { MenuRepository } from "../../menuRepository";
+import { MenuRepository } from "../../MenuRepository";
 
 const sectionStyle = {
   padding: "40px 20px",
