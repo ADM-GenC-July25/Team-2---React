@@ -105,6 +105,101 @@ function MenuPage() {
     }
   }
 
+  function GetFilterButton(totalItems) {
+    if (loading) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            style={{
+              background: "linear-gradient(45deg, #667eea, #764ba2)",
+              color: "white",
+              border: "none",
+              padding: "12px 24px",
+              borderRadius: "20px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+              transition: "transform 0.2s ease",
+            }}
+            onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+          >
+            🛸 {showFilters ? "Hide" : "Show"} Filters (Loading...)
+          </button>
+        </div>
+      );
+    } else if (error !== null) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <button
+            disabled={true}
+            onClick={() => setShowFilters(!showFilters)}
+            style={{
+              background: "linear-gradient(45deg, #667eea, #764ba2)",
+              color: "white",
+              border: "none",
+              padding: "12px 24px",
+              borderRadius: "20px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+              transition: "transform 0.2s ease",
+            }}
+            onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+          >
+            🛸 An Error has Occurred!
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "20px",
+          }}
+        >
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            style={{
+              background: "linear-gradient(45deg, #667eea, #764ba2)",
+              color: "white",
+              border: "none",
+              padding: "12px 24px",
+              borderRadius: "20px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+              transition: "transform 0.2s ease",
+            }}
+            onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+          >
+            🛸 {showFilters ? "Hide" : "Show"} Filters ({`${totalItems} items`})
+          </button>
+        </div>
+      );
+    }
+  }
+
   async function fetchFilteredItems(
     effectivePrice,
     effectiveCategory,
@@ -271,34 +366,7 @@ function MenuPage() {
       </div>
 
       {/* Filter Toggle Button */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          style={{
-            background: "linear-gradient(45deg, #667eea, #764ba2)",
-            color: "white",
-            border: "none",
-            padding: "12px 24px",
-            borderRadius: "20px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            cursor: "pointer",
-            boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-            transition: "transform 0.2s ease",
-          }}
-          onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
-          onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-        >
-          🛸 {showFilters ? "Hide" : "Show"} Filters (
-          {loading ? "Loading..." : `${totalItems} items`} )
-        </button>
-      </div>
+      {GetFilterButton(totalItems)}
 
       {/* Filters Panel */}
       {showFilters && (
