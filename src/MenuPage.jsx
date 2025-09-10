@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import MenuItemListingGrid from "./components/MenuItemListingGrid";
-import { MenuRepository } from "./menuRepository";
+import { MenuRepository } from "./MenuRepository";
 
 function MenuPage() {
   const [searchText, setSearchText] = useState("");
