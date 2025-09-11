@@ -6,6 +6,7 @@ import "./styles/CheckoutPage.css";
 import OrderSummary from "./components/checkout/OrderSummary";
 import CheckoutSuccess from "./components/checkout/CheckoutSuccess";
 import EmptyCart from "./components/checkout/EmptyCart";
+import { OrderService } from "./services/OrderService";
 
 // Import custom hook
 import useCheckoutForm from "./hooks/useCheckoutForm";
@@ -45,12 +46,33 @@ function CheckoutPage() {
 
     setIsProcessing(true);
 
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setOrderComplete(true);
+    try {
+      // Prepare order data for API
+      const orderData = {
+        firstName: formData.shippingFirstName,
+        lastName: formData.shippingLastName,
+        orderItems: cartItems.map(item => ({
+          itemId: item.id,
+          quantity: item.quantity
+        }))
+      };
+
+      // Create order via API
+      const orderResponse = await OrderService.createOrder(orderData);
+      
+      // Clear cart and redirect to order page
       emptyCart();
-    }, 3000);
+      navigate('/order', { 
+        state: { 
+          orderData: orderResponse 
+        } 
+      });
+      
+    } catch (error) {
+      console.error('Order creation failed:', error);
+      alert('Failed to place order. Please try again.');
+      setIsProcessing(false);
+    }
   };
 
   // Render different states
