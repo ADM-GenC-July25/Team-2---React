@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import HomePage from "./HomePage";
 import ShoppingCartPage from "./ShoppingCartPage";
 import CheckoutPage from "./CheckoutPage";
+import OrderPage from "./OrderPage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage";
 import Footer from "./components/Footer";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/products" element={<MenuPage />} />
           <Route path="/cart" element={<ShoppingCartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/order" element={<OrderPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
         </Routes>

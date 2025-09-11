@@ -1,10 +1,10 @@
 const API_BASE_URL =
   "http://978337test-env.eba-mz9qwfxb.us-west-2.elasticbeanstalk.com";
 
-/*
 
+// const API_BASE_URL = "/api";
 // use this in this file
-const API_BASE_URL = "/api";
+/*
 
 // add this into vite.config.js for proxying to bypass CORS
 server: {
