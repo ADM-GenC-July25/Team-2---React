@@ -6,7 +6,6 @@ import CheckoutPage from "./CheckoutPage";
 import LoginPage from "./LoginPage";
 import RegistrationPage from "./RegistrationPage";
 import Footer from "./components/Footer";
-import MenuItemPage from "./MenuItemPage";
 import MenuPage from "./MenuPage";
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<MenuPage />} />
-          <Route path="/menuitem/:id" element={<MenuItemPage />} />
           <Route path="/cart" element={<ShoppingCartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />

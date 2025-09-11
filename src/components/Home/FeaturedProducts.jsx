@@ -1,5 +1,6 @@
 import { useCart } from "../../CartContext";
-import menuData from "../../assets/menuData";
+import { useEffect, useState } from "react";
+import { MenuRepository } from "../../MenuRepository";
 
 const sectionStyle = {
   padding: "40px 20px",
@@ -29,38 +30,75 @@ const productCardStyle = {
 function FeaturedProducts() {
   const { addToCart } = useCart();
 
-  function getTopNPopularItems(menuData, n) {
-    return [...menuData]
-      .sort((a, b) => b.popularity - a.popularity)
-      .slice(0, n);
-  }
+  const [loading, setLoading] = useState();
+  const [error, setError] = useState(null);
+  const [featuredItems, setFeaturedItems] = useState([]);
 
   const amountOfFeaturedItems = 6;
-  // Get featured items from the data file
-  const featuredItems = getTopNPopularItems(menuData, amountOfFeaturedItems);
 
-  const handleAddToCart = (item) => {
-    // Convert the item format to match what the cart expects
-    const cartItem = {
-      id: item.id,
-      name: item.name,
-      shortDesc: item.name,
-      description: item.description,
-      price: item.price,
-      emoji: item.emoji,
-      quantity: 1,
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const [all] = await Promise.all([MenuRepository.fetchFeaturedItems(6)]);
+        setFeaturedItems(all);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
-    addToCart(cartItem);
-    // Optional: Show a toast or feedback
-    // alert(`${item.name} added to cart!`);
-  };
 
-  return (
-    <div
-      style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f8f9ff" }}
-    >
-      <style>
-        {`
+    loadData();
+  }, []);
+
+  function GetItemScreen() {
+    if (loading) {
+      return (
+        <div
+          style={{
+            textAlign: "center",
+            color: "#b8b8d1",
+            fontSize: "18px",
+            padding: "40px",
+            background: "rgba(255, 255, 255, 0.1)",
+            borderRadius: "15px",
+            margin: "0 auto",
+            maxWidth: "400px",
+          }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛸</div>
+          <p>Loading featured items...</p>
+        </div>
+      );
+    } else if (error !== null) {
+      return (
+        <div
+          style={{
+            textAlign: "center",
+            color: "#b8b8d1",
+            fontSize: "18px",
+            padding: "40px",
+            background: "rgba(255, 255, 255, 0.1)",
+            borderRadius: "15px",
+            margin: "0 auto",
+            maxWidth: "400px",
+          }}
+        >
+          <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛸</div>
+          <p>There was an error loading featured items!!!</p>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          style={{
+            fontFamily: "Arial, sans-serif",
+            backgroundColor: "#f8f9ff",
+          }}
+        >
+          <style>
+            {`
           @keyframes pulse {
             
             50% { transform: scale(1.1); }
@@ -90,72 +128,92 @@ function FeaturedProducts() {
             transform: scale(1.05);
           }
         `}
-      </style>
-      <section style={sectionStyle}>
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <h2
-            style={{
-              fontSize: "2.5em",
-              color: "#1a1a2e",
-              marginBottom: "15px",
-              background: "linear-gradient(45deg, #667eea, #764ba2)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            🌟 Galactic Menu Highlights
-          </h2>
-          <p
-            style={{
-              fontSize: "1.2em",
-              color: "#666",
-              maxWidth: "600px",
-              margin: "0 auto",
-            }}
-          >
-            Discover our most popular interplanetary dishes, crafted by expert
-            alien chefs
-          </p>
-        </div>
-
-        <div style={productGridStyle}>
-          {featuredItems.map((item) => (
-            <div
-              key={item.id}
-              style={productCardStyle}
-              className="product-card"
-            >
-              <div style={{ fontSize: "3em", marginBottom: "15px" }}>
-                {item.emoji}
-              </div>
-              <h3 style={{ fontSize: "1.5em", marginBottom: "15px" }}>
-                {item.name}
-              </h3>
-              <p style={{ marginBottom: "20px", lineHeight: "1.6" }}>
-                {item.description}
-              </p>
-              <div
+          </style>
+          <section style={sectionStyle}>
+            <div style={{ textAlign: "center", marginBottom: "40px" }}>
+              <h2
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "20px",
+                  fontSize: "2.5em",
+                  color: "#1a1a2e",
+                  marginBottom: "15px",
+                  background: "linear-gradient(45deg, #667eea, #764ba2)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 }}
               >
-                <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
-                  ${item.price.toFixed(2)}
-                </span>
-                <Button onClick={() => handleAddToCart(item)}>
-                  Add to Cart
-                </Button>
-              </div>
+                🌟 Galactic Menu Highlights
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.2em",
+                  color: "#666",
+                  maxWidth: "600px",
+                  margin: "0 auto",
+                }}
+              >
+                Discover our most popular interplanetary dishes, crafted by
+                expert alien chefs
+              </p>
             </div>
-          ))}
+
+            <div style={productGridStyle}>
+              {featuredItems.map((item) => (
+                <div
+                  key={item.id}
+                  style={productCardStyle}
+                  className="product-card"
+                >
+                  <div style={{ fontSize: "3em", marginBottom: "15px" }}>
+                    {item.emoji}
+                  </div>
+                  <h3 style={{ fontSize: "1.5em", marginBottom: "15px" }}>
+                    {item.name}
+                  </h3>
+                  <p style={{ marginBottom: "20px", lineHeight: "1.6" }}>
+                    {item.description}
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: "20px",
+                    }}
+                  >
+                    <span style={{ fontSize: "1.3em", fontWeight: "bold" }}>
+                      ${item.price.toFixed(2)}
+                    </span>
+                    <Button onClick={() => handleAddToCart(item)}>
+                      Add to Cart
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
-      </section>
-    </div>
-  );
+      );
+    }
+  }
+
+  const handleAddToCart = (item) => {
+    // Convert the item format to match what the cart expects
+    const cartItem = {
+      id: item.id,
+      name: item.name,
+      shortDesc: item.name,
+      description: item.description,
+      price: item.price,
+      emoji: item.emoji,
+      quantity: 1,
+    };
+    addToCart(cartItem);
+    // Optional: Show a toast or feedback
+    // alert(`${item.name} added to cart!`);
+  };
+
+  return <>{GetItemScreen()}</>;
 }
 
 export default FeaturedProducts;
