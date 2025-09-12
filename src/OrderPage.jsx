@@ -106,13 +106,32 @@ function OrderPage() {
             })),
         };
 
-        requestOptions = {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updateOrderData),
-        };
+        if (orderItems.length === 0) {
+          // delete order if new order has no items
+          const queryParams = new URLSearchParams({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          });
+
+          endpoint = `${BASE_URL}/delete/${
+            formData.orderId
+          }?${queryParams.toString()}`;
+
+          requestOptions = {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+        } else {
+          requestOptions = {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updateOrderData),
+          };
+        }
       } else {
         // Delete uses query parameters
         const queryParams = new URLSearchParams({
