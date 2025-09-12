@@ -91,23 +91,27 @@ function OrderPage() {
       let endpoint;
       let requestOptions;
 
+      let finalActionType = actionType;
+
       if (actionType === "update") {
         endpoint = `${BASE_URL}/update/${formData.orderId}`;
 
+        let updatedOrderItems = updateOrderItems
+          .filter((item) => item.quantity > 0) // Only include items with quantity > 0
+          .map((item) => ({
+            itemId: item.itemId,
+            quantity: item.quantity,
+          }));
         // Use the same body structure as create order with updated data
         const updateOrderData = {
           firstName: formData.firstName,
           lastName: formData.lastName,
-          orderItems: updateOrderItems
-            .filter((item) => item.quantity > 0) // Only include items with quantity > 0
-            .map((item) => ({
-              itemId: item.itemId,
-              quantity: item.quantity,
-            })),
+          orderItems: updatedOrderItems,
         };
 
-        if (orderItems.length === 0) {
+        if (updatedOrderItems.length === 0) {
           // delete order if new order has no items
+          finalActionType = "delete";
           const queryParams = new URLSearchParams({
             firstName: formData.firstName,
             lastName: formData.lastName,
@@ -152,7 +156,7 @@ function OrderPage() {
       const response = await fetch(endpoint, requestOptions);
 
       if (response.ok) {
-        if (actionType === "update") {
+        if (finalActionType === "update") {
           const result = await response.json();
           alert("Order updated successfully!");
           // Refresh the page with updated order data
