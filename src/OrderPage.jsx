@@ -84,12 +84,15 @@ function OrderPage() {
 
     setIsProcessing(true);
 
+    const BASE_URL =
+      "http://978337-team2-orderservice-env.eba-ewnv3rxm.us-west-2.elasticbeanstalk.com";
+
     try {
       let endpoint;
       let requestOptions;
 
       if (actionType === "update") {
-        endpoint = `/orders/update/${formData.orderId}`;
+        endpoint = `${BASE_URL}/update/${formData.orderId}`;
 
         // Use the same body structure as create order with updated data
         const updateOrderData = {
@@ -116,7 +119,7 @@ function OrderPage() {
           firstName: formData.firstName,
           lastName: formData.lastName,
         });
-        endpoint = `/orders/delete/${
+        endpoint = `${BASE_URL}/delete/${
           formData.orderId
         }?${queryParams.toString()}`;
         requestOptions = {
