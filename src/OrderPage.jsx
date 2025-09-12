@@ -211,73 +211,96 @@ function OrderPage() {
   return (
     <div className="order-page">
       <div className="order-container">
-        <div className="order-header">
-          <div className="success-icon">✓</div>
-          <h1>Order Confirmed!</h1>
-          <p className="order-id">Order #{orderData.id}</p>
-          <p className="customer-name">
-            Thank you, {orderData.firstName} {orderData.lastName}!
-          </p>
-        </div>
+        <div className="order-main">
+          <div className="order-header">
+            <div className="success-icon">✓</div>
+            <h1>Order Confirmed!</h1>
+            <p className="order-id">Order #{orderData.id}</p>
+            <p className="customer-name">
+              Thank you, {orderData.firstName} {orderData.lastName}!
+            </p>
+          </div>
 
-        <div className="order-content">
-          <div className="order-summary">
-            <h2>Order Summary</h2>
-            <div className="order-items">
-              {orderData.orderItems.map((orderItem, index) => (
-                <div key={orderItem.id || index} className="order-item">
-                  <div className="item-image">
-                    <Base64Image
-                      Base64Image={orderItem.item.img}
-                      alt={orderItem.item.description}
-                      className="menuitem-image"
-                    />
-                  </div>
-                  <div className="item-details">
-                    <h3>{orderItem.item.name}</h3>
-                    <p className="item-description">
-                      {orderItem.item.description}
-                    </p>
-                    <div className="item-meta">
-                      <span className="category">
-                        {orderItem.item.category}
-                      </span>
-                      {orderItem.item.spiceLevel && (
-                        <span className="spice-level">
-                          🌶️ {orderItem.item.spiceLevel.replace(/-/g, " ")}
-                        </span>
-                      )}
+          <div className="order-content">
+            <div className="order-summary">
+              <h2>Order Summary</h2>
+              <div className="order-items">
+                {orderData.orderItems.map((orderItem, index) => (
+                  <div key={orderItem.id || index} className="order-item">
+                    <div className="item-image">
+                      <Base64Image
+                        Base64Image={orderItem.item.img}
+                        alt={orderItem.item.description}
+                        className="menuitem-image"
+                      />
                     </div>
-                    {orderItem.customerOrder && (
-                      <p className="special-instructions">
-                        <strong>Special Instructions:</strong>{" "}
-                        {orderItem.customerOrder}
+                    <div className="item-details">
+                      <h3>{orderItem.item.name}</h3>
+                      <p className="item-description">
+                        {orderItem.item.description}
                       </p>
-                    )}
-                    {orderItem.item.allergens &&
-                      orderItem.item.allergens.length > 0 && (
-                        <p className="allergens">
-                          <strong>Allergens:</strong>{" "}
-                          {orderItem.item.allergens
-                            .join(", ")
-                            .replace(/-/g, " ")}
+                      <div className="item-meta">
+                        <span className="category">
+                          {orderItem.item.category}
+                        </span>
+                        {orderItem.item.spiceLevel && (
+                          <span className="spice-level">
+                            🌶️ {orderItem.item.spiceLevel.replace(/-/g, " ")}
+                          </span>
+                        )}
+                      </div>
+                      {orderItem.customerOrder && (
+                        <p className="special-instructions">
+                          <strong>Special Instructions:</strong>{" "}
+                          {orderItem.customerOrder}
                         </p>
                       )}
-                  </div>
-                  <div className="item-pricing">
-                    <div className="quantity">Qty: {orderItem.quantity}</div>
-                    <div className="price">
-                      ${formatPrice(orderItem.item.price)}
+                      {orderItem.item.allergens &&
+                        orderItem.item.allergens.length > 0 && (
+                          <p className="allergens">
+                            <strong>Allergens:</strong>{" "}
+                            {orderItem.item.allergens
+                              .join(", ")
+                              .replace(/-/g, " ")}
+                          </p>
+                        )}
                     </div>
-                    <div className="subtotal">
-                      ${formatPrice(orderItem.item.price * orderItem.quantity)}
+                    <div className="item-pricing">
+                      <div className="quantity">Qty: {orderItem.quantity}</div>
+                      <div className="price">
+                        ${formatPrice(orderItem.item.price)}
+                      </div>
+                      <div className="subtotal">
+                        ${formatPrice(orderItem.item.price * orderItem.quantity)}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
+          <div className="order-actions">
+            <button onClick={() => navigate("/")} className="btn-primary">
+              Continue Shopping
+            </button>
+            <button
+              onClick={() => navigate("/products")}
+              className="btn-secondary"
+            >
+              Browse Menu
+            </button>
+            <button onClick={handleUpdateOrder} className="btn-update">
+              Update Order
+            </button>
+            <button onClick={handleCancelOrder} className="btn-cancel">
+              Cancel Order
+            </button>
+          </div>
+        </div>
+
+        {/* Sticky Summary Sidebar */}
+        <div className="order-summary-sticky">
           <div className="order-totals">
             <h2>Order Totals</h2>
             <div className="totals-breakdown">
@@ -317,24 +340,6 @@ function OrderPage() {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="order-actions">
-          <button onClick={() => navigate("/")} className="btn-primary">
-            Continue Shopping
-          </button>
-          <button
-            onClick={() => navigate("/products")}
-            className="btn-secondary"
-          >
-            Browse Menu
-          </button>
-          <button onClick={handleUpdateOrder} className="btn-update">
-            Update Order
-          </button>
-          <button onClick={handleCancelOrder} className="btn-cancel">
-            Cancel Order
-          </button>
         </div>
       </div>
 

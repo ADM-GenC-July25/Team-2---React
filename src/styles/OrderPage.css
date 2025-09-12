@@ -8,8 +8,14 @@
 }
 
 .order-container {
-  max-width: 1000px;
+  display: flex;
+  max-width: 1200px;
   margin: 0 auto;
+  gap: 40px;
+}
+
+.order-main {
+  flex: 2;
   background: #18191b;
   border: 2px solid #23272a;
   border-radius: 18px;
@@ -177,14 +183,28 @@
   font-weight: 600;
 }
 
+/* Order Summary Sticky Sidebar */
+.order-summary-sticky {
+  flex: 1;
+  background: #18191b;
+  border: 2px solid #23272a;
+  border-radius: 18px;
+  padding: 30px;
+  height: fit-content;
+  position: sticky;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 /* Order Totals */
 .order-totals {
   background: #1e1f23;
   border: 1px solid #2a2d31;
   border-radius: 12px;
   padding: 25px;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin: 0;
 }
 
 .totals-breakdown {
@@ -248,7 +268,7 @@
   border: 1px solid #2a2d31;
   border-radius: 12px;
   padding: 25px;
-  margin-bottom: 30px;
+  margin: 0;
 }
 
 .pickup-details p {
