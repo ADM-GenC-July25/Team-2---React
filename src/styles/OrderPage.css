@@ -2,7 +2,7 @@
 .order-page {
   background: #101014;
   min-height: 100vh;
-  font-family: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  font-family: "Poppins", "Segoe UI", "Roboto", Arial, sans-serif;
   color: #f5f6fa;
   padding: 40px 20px;
 }
@@ -63,16 +63,16 @@
   margin-bottom: 40px;
 }
 
+/* Order Items */
+.order-items {
+  margin-bottom: 30px;
+}
+
 .order-content h2 {
   font-size: 1.8rem;
   color: #fff;
   margin-bottom: 20px;
   font-weight: 600;
-}
-
-/* Order Items */
-.order-items {
-  margin-bottom: 30px;
 }
 
 .order-item {
@@ -184,6 +184,7 @@
   border-radius: 12px;
   padding: 25px;
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .totals-breakdown {
@@ -278,7 +279,10 @@
   margin-top: 30px;
 }
 
-.btn-primary, .btn-secondary, .btn-update, .btn-cancel {
+.btn-primary,
+.btn-secondary,
+.btn-update,
+.btn-cancel {
   padding: 14px 28px;
   border: none;
   border-radius: 8px;
@@ -367,7 +371,10 @@
     align-items: center;
   }
 
-  .btn-primary, .btn-secondary, .btn-update, .btn-cancel {
+  .btn-primary,
+  .btn-secondary,
+  .btn-update,
+  .btn-cancel {
     width: 100%;
     max-width: 300px;
   }
@@ -617,4 +624,4 @@ input[readonly] {
     max-width: none;
     width: 100%;
   }
-} 
+}

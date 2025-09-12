@@ -1,14 +1,14 @@
 const API_BASE_URL =
-  "http://978337test-env.eba-mz9qwfxb.us-west-2.elasticbeanstalk.com";
+  "http://978337-team2-orderservice-env.eba-ewnv3rxm.us-west-2.elasticbeanstalk.com";
 // const API_BASE_URL = "/orders";
 
 export const OrderService = {
   async createOrder(orderData) {
     try {
       const response = await fetch(`${API_BASE_URL}/create`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(orderData),
       });
@@ -19,7 +19,7 @@ export const OrderService = {
 
       return await response.json();
     } catch (error) {
-      console.error('Error creating order:', error);
+      console.error("Error creating order:", error);
       throw error;
     }
   },
@@ -27,15 +27,15 @@ export const OrderService = {
   async getOrder(orderId) {
     try {
       const response = await fetch(`${API_BASE_URL}/orders/${orderId}`);
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch order: ${response.status}`);
       }
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching order:', error);
+      console.error("Error fetching order:", error);
       throw error;
     }
   },
-}; 
+};
