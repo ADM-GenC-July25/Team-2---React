@@ -1,5 +1,6 @@
 import "../styles/MenuItem.css";
 import { useCart } from "../CartContext";
+import Base64Image from "./Base64Img";
 
 function MenuItem({ item, addToCart }) {
   const { addToCart: addToCartContext } = useCart();
@@ -17,7 +18,12 @@ function MenuItem({ item, addToCart }) {
   return (
     <div className="menuitem-container" onClick={handleAddToCart}>
       {item.img && (
-        <img src={item.img} alt={item.description} className="menuitem-image" />
+        <Base64Image
+          Base64Image={item.img}
+          alt={item.description}
+          className="menuitem-image"
+        />
+        //<img src={item.img} alt={item.description} className="menuitem-image" />
       )}
       <div className="menuitem-content">
         <h3 className="menuitem-title">{item.name}</h3>

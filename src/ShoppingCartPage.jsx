@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 import "./styles/ShoppingCartPage.dark.css";
+import Base64Image from "./components/Base64Img";
 
 function ShoppingCartPage({ onNavigate, onProductClick }) {
   const {
@@ -98,7 +99,11 @@ function ShoppingCartPage({ onNavigate, onProductClick }) {
                     marginRight: "18px",
                   }}
                 >
-                  🍽️
+                  <Base64Image
+                    Base64Image={item.img}
+                    alt={item.description}
+                    className="menuitem-image"
+                  />
                 </div>
                 <div
                   className="shopping-cart-details"

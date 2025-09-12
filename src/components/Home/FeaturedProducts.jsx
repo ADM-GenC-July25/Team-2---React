@@ -202,11 +202,18 @@ function FeaturedProducts() {
     const cartItem = {
       id: item.id,
       name: item.name,
-      shortDesc: item.name,
       description: item.description,
+      category: item.category,
+      spiceLevel: item.spiceLevel,
       price: item.price,
-      emoji: item.emoji,
+      allergens: item.allergens,
+      img: item.img,
+      availability: item.availability,
+      popularity: item.popularity,
+
       quantity: 1,
+      shortDesc: item.name,
+      emoji: item.emoji,
     };
     addToCart(cartItem);
     // Optional: Show a toast or feedback

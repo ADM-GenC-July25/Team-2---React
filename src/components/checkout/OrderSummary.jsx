@@ -1,4 +1,5 @@
 import "./OrderSummary.css";
+import Base64Image from "../Base64Img";
 
 function OrderSummary({
   cartItems,
@@ -15,7 +16,11 @@ function OrderSummary({
       <div className="order-items">
         {cartItems.map((item, index) => (
           <div key={index} className="order-item">
-            <img src={item.img} alt={""} />
+            <Base64Image
+              Base64Image={item.img}
+              alt={item.description}
+              className="menuitem-image"
+            />
             <div className="item-details">
               <div className="item-name">{item.shortDesc}</div>
               <div className="item-quantity">Qty: {item.quantity}</div>
