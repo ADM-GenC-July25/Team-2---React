@@ -271,7 +271,8 @@ function OrderPage() {
                         ${formatPrice(orderItem.item.price)}
                       </div>
                       <div className="subtotal">
-                        ${formatPrice(orderItem.item.price * orderItem.quantity)}
+                        $
+                        {formatPrice(orderItem.item.price * orderItem.quantity)}
                       </div>
                     </div>
                   </div>
@@ -282,13 +283,7 @@ function OrderPage() {
 
           <div className="order-actions">
             <button onClick={() => navigate("/")} className="btn-primary">
-              Continue Shopping
-            </button>
-            <button
-              onClick={() => navigate("/products")}
-              className="btn-secondary"
-            >
-              Browse Menu
+              Back to Home
             </button>
             <button onClick={handleUpdateOrder} className="btn-update">
               Update Order
